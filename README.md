@@ -6,6 +6,18 @@ Horizontal Time Safety Margin is a method of estimating available margin during 
 
 ## Technologies 
 
+### git
+
+[git](https://git-scm.com/) is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+
+The files in this repository are version controlled using git.
+
+### GitHub
+
+[GitHub](https://github.com/) is a proprietary developer platform that allows developers to create, store, manage, and share their code. It is commonly used to host open source software development projects. It uses git to provide distributed version control and GitHub itself provides access control, bug tracking, software feature requests, task management, continuous integration, and wikis for every project. GitHub has been a subsidiary of Microsoft since 2018.
+
+The files in this repository are hosted and available on GitHub at <https://github.com/cooknl/htsm>. GitHub also hosts the website for the web pages rendered from this repository. 
+
 ### Quarto
 
 [Quarto](https://quarto.org) is an open-source scientific and technical publishing system.
