@@ -4,6 +4,10 @@
 
 Horizontal Time Safety Margin is a method of estimating available margin during ground test
 
+## Manuscript
+
+Available as [cook_horizontal_time_safety_margin_2025.pdf](quarto/_pdf/cook_horizontal_time_safety_margin_2025.pdf)
+
 ## Technologies 
 
 ### git
@@ -29,8 +33,13 @@ The manuscript for the paper describing HTSM is rendered from the[quarto.qmd](qu
 If you have made a copy of this repository, you can [render the manuscript](https://quarto.org/docs/projects/quarto-projects.html#rendering-projects) by opening a terminal (Windows: PowerShell, MacOS or Linux: terminal), navigating to the `/quarto` directory and typing 
 
 ```shell
-quarto render
+# For HTML in a docs directory for GitHub pages
+quarto render --to html --output-dir ../docs --o index.html
+
+# For PDF
+quarto render --to pdf --output-dir ./_pdf
 ```
+
 
 ### uv
 
