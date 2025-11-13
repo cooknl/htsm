@@ -1,12 +1,14 @@
 # Horizontal Time Safety Margin (HTSM)
 
-[![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]
+[![CC BY-NC 4.0][cc-by-nc-shield]][cc-by-nc]  [![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/cooknl/htsm/blob/main/marimo/Horizontal%20Time%20Safety%20Margin%20Interactive%20Tool.py)
 
 Horizontal Time Safety Margin is a method of estimating available margin during ground test
 
 ## Manuscript
 
 Available as [cook_horizontal_time_safety_margin_2025.pdf](quarto/_pdf/cook_horizontal_time_safety_margin_2025.pdf)
+
+Also hosted here on GitHub Pages at <https://cooknl.github.io/htsm/>
 
 ## Technologies 
 
@@ -59,6 +61,10 @@ If you want to export the notebook so it can be run as a webpage, navigate to th
 ```shell
 uv run marimo export html-wasm "Horizontal Time Safety Margin Interactive Tool.py" -o ../docs/marimo --mode run
 ```
+
+You can also run the notebook [marimo/Horizontal Time Safety Margin Interactive Tool.py](https://github.com/cooknl/htsm/blob/main/marimo/Horizontal%20Time%20Safety%20Margin%20Interactive%20Tool.py) directly on molab by clicking the badge below:
+
+[![Open in molab](https://marimo.io/molab-shield.svg)](https://molab.marimo.io/github/cooknl/htsm/blob/main/marimo/Horizontal%20Time%20Safety%20Margin%20Interactive%20Tool.py)
 
 ---
 
