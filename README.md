@@ -18,13 +18,19 @@ The files in this repository are version controlled using git.
 
 The files in this repository are hosted and available on GitHub at <https://github.com/cooknl/htsm>. GitHub also hosts the website for the web pages rendered from this repository. 
 
+You can make a copy of this repository using the tools provided by GitHub.
+
 ### Quarto
 
 [Quarto](https://quarto.org) is an open-source scientific and technical publishing system.
 
 The manuscript for the paper describing HTSM is rendered from the[quarto.qmd](quarto/htsm.qmd) Quarto markdown file.
 
-If you would like to 
+If you have made a copy of this repository, you can [render the manuscript](https://quarto.org/docs/projects/quarto-projects.html#rendering-projects) by opening a terminal (Windows: PowerShell, MacOS or Linux: terminal), navigating to the `/quarto` directory and typing 
+
+```shell
+quarto render
+```
 
 ### uv
 
