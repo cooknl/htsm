@@ -53,6 +53,13 @@ The python environment used to run the notebook is managed using uv.
 
 The notebook for exploration of HTSM is a marimo notebook.
 
+
+If you want to export the notebook so it can be run as a webpage, navigate to the `/marimo` directory and type
+
+```shell
+uv run marimo export html-wasm "Horizontal Time Safety Margin Interactive Tool.py" -o ../docs/marimo --mode run
+```
+
 ---
 
 This work is licensed under a
