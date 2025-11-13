@@ -6,6 +6,7 @@ manuscript:
 
 format:
   html:
+    output-file: index.html
     comments:
       hypothesis: true
   jats: default

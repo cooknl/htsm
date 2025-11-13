@@ -189,7 +189,7 @@ Additionally, the aircraft is treated as a point mass for the purposes of this i
    * The time margin is a duration 
    * The duration is the time for which the worst-case vector is extended prior to starting the recovery maneuver, shown as the dashed line in @fig-basic-turn.
 
-![Basic Turn Recovery Inspired by TSM Basic Dive Recovery](marimo-htsm/media/images/BigIdeaDiveCompare.png){#fig-basic-turn width=80% fig-alt="Figure depicting the components of a basic turn recovery as inspired by TSM basic dive recovery"}
+![Basic Turn Recovery Inspired by TSM Basic Dive Recovery](images/BigIdeaDiveCompare.png){#fig-basic-turn width=80% fig-alt="Figure depicting the components of a basic turn recovery as inspired by TSM basic dive recovery"}
 
 ## Horizontal Time Safety Margin Implementation {#sec-htsm_implementation}
 
@@ -220,7 +220,7 @@ With those assumptions in place, the following are given, as shown in @fig-given
 3. a desired time margin, $t_{margin}$
 4. a turn radius, $r_{turn_{recovery}}$
 
-![The given parameters for horizontal time safety margin](marimo-htsm/media/images/BigIdeaStaticGiven.png){#fig-given width=80% fig-alt="Figure depicting the given parameters"}
+![The given parameters for horizontal time safety margin](images/BigIdeaStaticGiven.png){#fig-given width=80% fig-alt="Figure depicting the given parameters"}
 
 ### Calculating the Maximum Recoverable Crossing Angle, $\theta$ {#sec-calc_theta}
 
@@ -241,12 +241,12 @@ The other two are too small for the given parameters.
 While they both result in a safe recovery, they are too shallow for the time margin selected.
 The two shallow angles result in excessive margin and potentially nuisance abort calls.
 
-![Three angles that result in insufficient margin or excessive margin for the given speed, buffer distance, turn radius and time margin](marimo-htsm/media/images/BigIdeaStaticCalculate.png){#fig-calc-examples width=80% fig-alt="Figure depicting non-optimal angles for the given parameters"}
+![Three angles that result in insufficient margin or excessive margin for the given speed, buffer distance, turn radius and time margin](images/BigIdeaStaticCalculate.png){#fig-calc-examples width=80% fig-alt="Figure depicting non-optimal angles for the given parameters"}
 
 To more precisely state the geometry problem, @fig-angles zooms in to the buffer distance, $b$. 
 The figure depicts the geometry for a recovery at the edge of the prepared surface after traveling a straight-line distance for the full duration of the time safety margin.
 
-![Analysis of the desired crossing angle](/marimo-htsm/media/images/BigIdeaStaticAngles.png){#fig-angles width=80% fig-alt="Figure depicting the angles necessary to determine the desired crossing angle"}
+![Analysis of the desired crossing angle](images/BigIdeaStaticAngles.png){#fig-angles width=80% fig-alt="Figure depicting the angles necessary to determine the desired crossing angle"}
 
 Upon inspection, two right triangles, $\Delta \mu IT$ and $\Delta I\mu M$, can be constructed from the following elements:
 
@@ -312,7 +312,7 @@ As always, careful attention to unit conversions is necessary, especially when w
 
 This results in an angle of $\theta = 1.05981\mathrm{rad} = 60.7226^{\circ}$ and recovery of a point mass without departing the prepared surface.
 
-![Demonstration of use of @eq-theta-full to achieve a 4.0 time safety margin](marimo-htsm/media/images/BigIdeaStaticCalculatePerfect.png){#fig-perfect width="80%" fig-alt="A figure depicting the precision with which the angle calculated using the equation provides the desired outcome"}
+![Demonstration of use of @eq-theta-full to achieve a 4.0 time safety margin](images/BigIdeaStaticCalculatePerfect.png){#fig-perfect width="80%" fig-alt="A figure depicting the precision with which the angle calculated using the equation provides the desired outcome"}
 
 ### Calculating the Remaining Parameters {#sec-calc_remaining_params}
 
@@ -327,7 +327,7 @@ To declutter the figure:
 - the time margin, $t_{margin}$, is shown as $t$, and 
 - the time margin distance, $d_{margin}$, is shown as the product $t\cdot s$ .
 
-![A shift in geometry yields a closed form solution for the other parameters, given the crossing angle, $\theta$](/marimo-htsm/media/images/BigIdeaStaticOtherAngles.png){#fig-others width="80%" fig-alt="A figure depicting a closed form solution for the other parameters"}
+![A shift in geometry yields a closed form solution for the other parameters, given the crossing angle, $\theta$](images/BigIdeaStaticOtherAngles.png){#fig-others width="80%" fig-alt="A figure depicting a closed form solution for the other parameters"}
 
 #### Triangle $\Delta TIH$ {#sec-triangle_tih}
 
@@ -549,11 +549,11 @@ For scenarios with inherently smaller margins, the Air Force Test Center recomme
 
 | Short Title | TSM Range [sec]| Minimum Planning Fidelity | Recovery Procedure | Minimum Training & Buildup | Recovery Initiation Call | Baseline Post-Mitigation Risk Level |
 |-|-|-|-|-|-|-| 
-|Routine|t ≥ 8|Normal ops|Routine|Not Required|Pilot|Low|
-|Focused|8 > t ≥ 4|M&S|Defined & Documented|In-Flight Buildup|Pilot|Low|
-|Aided|4 > t ≥ 2.5|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Backup for Pilot|Low-Med|
-|Redundantly Aided|2.5 > t ≥ 1.5|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Two Backups for Pilot & Anticipatory Cueing Desired|Med-High|
-|Cued Anticipation|1.5 > t ≥ 0|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Two Backups for Pilot & Anticipatory Cueing Required|High|
+|Routine|$t \ge 8$|Normal ops|Routine|Not Required|Pilot|Low|
+|Focused|$8 > t \ge 4$|M&S|Defined & Documented|In-Flight Buildup|Pilot|Low|
+|Aided|$4 > t \ge 2.5$|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Backup for Pilot|Low-Med|
+|Redundantly Aided|$2.5 > t \ge 1.5$|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Two Backups for Pilot & Anticipatory Cueing Desired|Med-High|
+|Cued Anticipation|$1.5 > t \ge 0$|Best Available M&S|Defined & Documented|Sim Rehearsal & In-Flight Buildup|Two Backups for Pilot & Anticipatory Cueing Required|High|
 
 : Air Force Manual 11-2FTV3 TSM Risk Assessment {#tbl-afman_tsm .bordered}
 
@@ -692,7 +692,7 @@ These functions are defined with arbitrary default values of buffer distance, `b
 These default values allow the functions to return a value in the absence of one or more input argument definitions.
 
 ```python 
-from numpy import arcsin, arctan, sqrt
+from numpy import sin, cos, arcsin, arctan, sqrt
 
 
 def abort_angle(buffer=4.0, radius=1.0, speed=1.0, time=4.0):
@@ -703,22 +703,22 @@ def abort_angle(buffer=4.0, radius=1.0, speed=1.0, time=4.0):
 
 
 def abort_buffer(angle=abort_angle(), radius=1.0, speed=1.0, time=4.0):
-    return float(time * speed * np.sin(angle) + radius * (1 - np.cos(angle)))
+    return float(time * speed * sin(angle) + radius * (1 - cos(angle)))
 
 
 def time_margin(buffer=4.0, radius=1.0, speed=1.0, angle=abort_angle()):
     return float(
-        (buffer + radius * (np.cos(angle) - 1)) / (speed * np.sin(angle))
+        (buffer + radius * (cos(angle) - 1)) / (speed * sin(angle))
     )
 
 
 def abort_speed(buffer=4.0, radius=1.0, angle=abort_angle(), time=4.0):
     return float(
-        (buffer + radius * (np.cos(angle) - 1)) / (time * np.sin(angle))
+        (buffer + radius * (cos(angle) - 1)) / (time * sin(angle))
     )
 
 
 def abort_radius(buffer=4.0, angle=abort_angle(), speed=1.0, time=4.0):
-    return float((time * speed * np.sin(angle) - buffer) / (np.cos(angle) - 1))
+    return float((time * speed * sin(angle) - buffer) / (cos(angle) - 1))
 ```
 

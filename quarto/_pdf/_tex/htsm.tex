@@ -605,7 +605,7 @@ geometry.
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaDiveCompare.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaDiveCompare.png}
 
 }
 
@@ -699,7 +699,7 @@ Figure~\ref{fig-given}:
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticGiven.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaStaticGiven.png}
 
 }
 
@@ -751,7 +751,7 @@ and potentially nuisance abort calls.
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticCalculate.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaStaticCalculate.png}
 
 }
 
@@ -770,7 +770,7 @@ straight-line distance for the full duration of the time safety margin.
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{./marimo-htsm/media/images/BigIdeaStaticAngles.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaStaticAngles.png}
 
 }
 
@@ -865,7 +865,7 @@ Equation~\ref{eq-theta-full}.
 \theta = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{t_{margin} \cdot s} \right) + \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + \left(t_{margin} \cdot s\right)^{2}}} \right)
 }\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomrule=.15mm, titlerule=0mm, toptitle=1mm, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, left=2mm, opacitybacktitle=0.6, colback=white, colframe=quarto-callout-important-color-frame, toprule=.15mm, bottomtitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colbacktitle=quarto-callout-important-color!10!white, breakable, titlerule=0mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm, colframe=quarto-callout-important-color-frame, arc=.35mm, colback=white, bottomtitle=1mm, opacityback=0, toptitle=1mm, toprule=.15mm, bottomrule=.15mm, rightrule=.15mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}]
 
 This function provides the abort angle in radians, given that the
 distance, time, and speed units are consistent in length and time. As
@@ -898,7 +898,7 @@ point mass without departing the prepared surface.
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticCalculatePerfect.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaStaticCalculatePerfect.png}
 
 }
 
@@ -936,7 +936,7 @@ in Figure~\ref{fig-others}. To declutter the figure:
 
 \centering{
 
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{./marimo-htsm/media/images/BigIdeaStaticOtherAngles.png}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/BigIdeaStaticOtherAngles.png}
 
 }
 
@@ -1401,18 +1401,18 @@ Baseline Post-Mitigation Risk Level
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Routine & t ≥ 8 & Normal ops & Routine & Not Required & Pilot & Low \\
-Focused & 8 \textgreater{} t ≥ 4 & M\&S & Defined \& Documented &
-In-Flight Buildup & Pilot & Low \\
-Aided & 4 \textgreater{} t ≥ 2.5 & Best Available M\&S & Defined \&
-Documented & Sim Rehearsal \& In-Flight Buildup & Backup for Pilot &
-Low-Med \\
-Redundantly Aided & 2.5 \textgreater{} t ≥ 1.5 & Best Available M\&S &
-Defined \& Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups
-for Pilot \& Anticipatory Cueing Desired & Med-High \\
-Cued Anticipation & 1.5 \textgreater{} t ≥ 0 & Best Available M\&S &
-Defined \& Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups
-for Pilot \& Anticipatory Cueing Required & High \\
+Routine & \(t \ge 8\) & Normal ops & Routine & Not Required & Pilot &
+Low \\
+Focused & \(8 > t \ge 4\) & M\&S & Defined \& Documented & In-Flight
+Buildup & Pilot & Low \\
+Aided & \(4 > t \ge 2.5\) & Best Available M\&S & Defined \& Documented
+& Sim Rehearsal \& In-Flight Buildup & Backup for Pilot & Low-Med \\
+Redundantly Aided & \(2.5 > t \ge 1.5\) & Best Available M\&S & Defined
+\& Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups for
+Pilot \& Anticipatory Cueing Desired & Med-High \\
+Cued Anticipation & \(1.5 > t \ge 0\) & Best Available M\&S & Defined \&
+Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups for Pilot
+\& Anticipatory Cueing Required & High \\
 \end{longtable}
 
 \subsection{Parameter Interactions}\label{sec-consider_interactions}
@@ -1692,7 +1692,7 @@ definitions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ImportTok{from}\NormalTok{ numpy }\ImportTok{import}\NormalTok{ arcsin, arctan, sqrt}
+\ImportTok{from}\NormalTok{ numpy }\ImportTok{import}\NormalTok{ sin, cos, arcsin, arctan, sqrt}
 
 
 \KeywordTok{def}\NormalTok{ abort\_angle(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
@@ -1703,23 +1703,23 @@ definitions.
 
 
 \KeywordTok{def}\NormalTok{ abort\_buffer(angle}\OperatorTok{=}\NormalTok{abort\_angle(), radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
-    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ np.sin(angle) }\OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ np.cos(angle)))}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ sin(angle) }\OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ cos(angle)))}
 
 
 \KeywordTok{def}\NormalTok{ time\_margin(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle()):}
     \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}
-\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (speed }\OperatorTok{*}\NormalTok{ np.sin(angle))}
+\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (speed }\OperatorTok{*}\NormalTok{ sin(angle))}
 \NormalTok{    )}
 
 
 \KeywordTok{def}\NormalTok{ abort\_speed(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle(), time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
     \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}
-\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (time }\OperatorTok{*}\NormalTok{ np.sin(angle))}
+\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (time }\OperatorTok{*}\NormalTok{ sin(angle))}
 \NormalTok{    )}
 
 
 \KeywordTok{def}\NormalTok{ abort\_radius(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle(), speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
-    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{((time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ np.sin(angle) }\OperatorTok{{-}} \BuiltInTok{buffer}\NormalTok{) }\OperatorTok{/}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{))}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{((time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ sin(angle) }\OperatorTok{{-}} \BuiltInTok{buffer}\NormalTok{) }\OperatorTok{/}\NormalTok{ (cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
