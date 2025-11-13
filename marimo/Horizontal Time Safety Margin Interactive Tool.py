@@ -9,7 +9,7 @@
 
 import marimo
 
-__generated_with = "0.17.7"
+__generated_with = "0.16.5"
 app = marimo.App(auto_download=["html"])
 
 
@@ -20,123 +20,6 @@ def _():
     from numpy import arcsin, arctan, sqrt, sin, cos
     import math
     return arcsin, arctan, cos, math, mo, sin, sqrt
-
-
-@app.cell
-def _(
-    get_state,
-    mo,
-    number_b,
-    number_r,
-    number_s,
-    number_t,
-    number_θ,
-    target_selector,
-):
-    # Display cell - number inputs only
-    _state = get_state()
-
-    mo.vstack([
-        mo.md("### Interactive Calculator"),
-        target_selector,
-        mo.md("---"),
-        # θ row
-        mo.hstack([
-            number_θ if _state["output_target"] != "θ" else mo.md(f"θ: {_state['θ']['value']:.2f}"),
-            mo.md(f"{_state['θ']['units']}")
-        ], justify="start"),
-        # b row  
-        mo.hstack([
-            number_b if _state["output_target"] != "b" else mo.md(f"b: {_state['b']['value']:.2f}"),
-            mo.md(f"{_state['b']['units']}")
-        ], justify="start"),
-        # t row
-        mo.hstack([
-            number_t if _state["output_target"] != "t" else mo.md(f"t: {_state['t']['value']:.2f}"),
-            mo.md(f"{_state['t']['units']}")
-        ], justify="start"),
-        # s row
-        mo.hstack([
-            number_s if _state["output_target"] != "s" else mo.md(f"s: {_state['s']['value']:.2f}"),
-            mo.md(f"{_state['s']['units']} ground")
-        ], justify="start"),
-        # r row
-        mo.hstack([
-            number_r if _state["output_target"] != "r" else mo.md(f"r: {_state['r']['value']:.2f}"),
-            mo.md(f"{_state['r']['units']}")
-        ], justify="start"),
-    ])
-    return
-
-
-@app.cell
-def _(get_state, handle_slider_change, mo):
-    # ALL UI ELEMENTS CREATION - NUMBERS ONLY VERSION
-    _state = get_state()
-
-    def make_number_handler(param_name):
-        """Create a proper closure for the number handler"""
-        print(f"Creating handler for parameter: {param_name}")  # Debug line
-        def handler(value):
-            print(f"Handler called for {param_name}: {value}")  # Debug line
-            return handle_slider_change(param_name, value)
-        return handler
-
-    print("Creating ALL number input elements with consistent state...")
-
-    # Create ALL number inputs (replacing sliders)
-    number_θ = mo.ui.number(
-        value=_state["θ"]["value"],
-        start=_state["θ"]["start"],
-        stop=_state["θ"]["stop"],
-        step=_state["θ"]["step"],
-        label=f"θ:",
-        debounce=True,
-        on_change=make_number_handler("θ"),
-    ).style({"width": "120px"})
-
-    number_b = mo.ui.number(
-        value=_state["b"]["value"],
-        start=_state["b"]["start"],
-        stop=_state["b"]["stop"],
-        step=_state["b"]["step"],
-        label=f"b:",
-        debounce=True,
-        on_change=make_number_handler("b"),
-    ).style({"width": "120px"})
-
-    number_t = mo.ui.number(
-        value=_state["t"]["value"],
-        start=_state["t"]["start"],
-        stop=_state["t"]["stop"],
-        step=_state["t"]["step"],
-        label=f"t:",
-        debounce=True,
-        on_change=make_number_handler("t"),
-    ).style({"width": "120px"})
-
-    number_s = mo.ui.number(
-        value=_state["s"]["value"],
-        start=_state["s"]["start"],
-        stop=_state["s"]["stop"],
-        step=_state["s"]["step"],
-        label=f"s:",
-        debounce=True,
-        on_change=make_number_handler("s"),
-    ).style({"width": "120px"})
-
-    number_r = mo.ui.number(
-        value=_state["r"]["value"],
-        start=_state["r"]["start"],
-        stop=_state["r"]["stop"],
-        step=_state["r"]["step"],
-        label=f"r:",
-        debounce=True,
-        on_change=make_number_handler("r"),
-    ).style({"width": "120px"})
-
-    print("All number input elements created with current state values")
-    return number_b, number_r, number_s, number_t, number_θ
 
 
 @app.cell
