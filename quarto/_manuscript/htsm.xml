@@ -1,0 +1,2176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+
+<front>
+
+
+<article-meta>
+
+
+<title-group>
+<article-title>Horizontal Time Safety Margin</article-title>
+</title-group>
+
+<contrib-group>
+<contrib contrib-type="author">
+<name>
+<surname>Cook</surname>
+<given-names>Nathan</given-names>
+</name>
+<string-name>Nathan Cook</string-name>
+
+<email>me@capncook.nl</email>
+<xref ref-type="aff" rid="aff-1">a</xref>
+</contrib>
+<contrib contrib-type="author">
+<name>
+<surname>Cook</surname>
+<given-names>Jackson</given-names>
+</name>
+<string-name>Jackson Cook</string-name>
+
+<xref ref-type="aff" rid="aff-1">a</xref>
+</contrib>
+</contrib-group>
+<aff id="aff-1">
+<institution-wrap>
+<institution>Niceville, FL</institution>
+</institution-wrap>
+
+
+
+
+
+
+
+</aff>
+
+
+
+
+
+
+
+
+
+<history></history>
+
+<permissions>
+
+<license license-type="creative-commons">
+<ali:license_ref xmlns:ali="http://www.niso.org/schemas/ali/1.0/">https://creativecommons.org/licenses/by-nc-sa/4.0/</ali:license_ref>
+
+</license>
+</permissions>
+
+
+
+
+
+</article-meta>
+
+</front>
+
+<body>
+<p>This work is licensed under
+<ext-link ext-link-type="uri" xlink:href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC
+BY-NC-SA 4.0</ext-link></p>
+<sec id="sec-abstract">
+  <title>Abstract</title>
+  <p>A technique is developed for establishing safety constraints during
+  ground test directional maneuvering. The technique is applicable to
+  any operation in an environment with hazards associated with departing
+  a prepared surface or violating proximity buffers around personnel or
+  property. The name “Horizontal Time Safety Margin” is inspired by the
+  Time Safety Margin (TSM) approach to establishing abort criteria for
+  highly dynamic vertical flight test maneuvering developed at Edwards
+  AFB, honoring the legacy of David “Cools” Cooley. Previous TSM work is
+  reviewed, and a general approach is provided to allow the specific
+  constraints of any system under test to be factored into
+  implementation. Considerations and lessons learned are discussed,
+  based on recent taxi testing.</p>
+</sec>
+<sec id="sec-acronyms">
+  <title>Acronyms, Abbreviations, Symbols</title>
+  <table-wrap>
+    <table>
+      <colgroup>
+        <col width="25%" />
+        <col width="75%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Acronym</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TSM</td>
+          <td>Time Safety Margin</td>
+        </tr>
+        <tr>
+          <td>M&amp;S</td>
+          <td>Modeling and Simulation</td>
+        </tr>
+      </tbody>
+    </table>
+  </table-wrap>
+  <table-wrap>
+    <table>
+      <colgroup>
+        <col width="25%" />
+        <col width="75%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Prepared Surface Symbol</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Distance buffer line</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[E]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Edge of prepared surface</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[C]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Centerline of prepared surface</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[w]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>w</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Width between edges of prepared surface</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[o]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>o</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Offset distance between centerline prepared surface and
+          distance buffer line</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[h]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>h</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Halfwidth distance from centerline to edge of prepared
+          surface</td>
+        </tr>
+      </tbody>
+    </table>
+  </table-wrap>
+  <table-wrap>
+    <table>
+      <colgroup>
+        <col width="25%" />
+        <col width="75%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Horizontal Time Safety Margin Parameter</th>
+          <th>Definitions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[b]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Buffer distance between distance buffer line and edge of
+          prepared surface</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[s]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Speed</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Crossing angle</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula></td>
+          <td>Crossing angle value used as an abort criterion</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[t_{margin}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+          or <inline-formula><alternatives>
+          <tex-math><![CDATA[t]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>t</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Time margin</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+          or <inline-formula><alternatives>
+          <tex-math><![CDATA[r]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Turn radius during recovery</td>
+        </tr>
+      </tbody>
+    </table>
+  </table-wrap>
+  <table-wrap>
+    <table>
+      <colgroup>
+        <col width="25%" />
+        <col width="75%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Derived Parameter</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\vec{v}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>v</mml:mi><mml:mo accent="true">→</mml:mo></mml:mover></mml:math></alternatives></inline-formula></td>
+          <td>Velocity vector</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[d_{margin}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula></td>
+          <td>Distance margin, the product of time margin and speed</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\dot{\theta}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>θ</mml:mi><mml:mo accent="true">̇</mml:mo></mml:mover></mml:math></alternatives></inline-formula></td>
+          <td>Angular rate</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\ddot{\theta}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>θ</mml:mi><mml:mo accent="true">̈</mml:mo></mml:mover></mml:math></alternatives></inline-formula></td>
+          <td>Angular acceleration</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\dot{s}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>s</mml:mi><mml:mo accent="true">̇</mml:mo></mml:mover></mml:math></alternatives></inline-formula></td>
+          <td>Linear acceleration</td>
+        </tr>
+      </tbody>
+    </table>
+  </table-wrap>
+  <table-wrap>
+    <table>
+      <colgroup>
+        <col width="25%" />
+        <col width="75%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Geometric Term</th>
+          <th>Definition</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\Delta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>Δ</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Triangle</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\angle]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>∠</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Angle</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[I]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>I</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point of intersection of the ground path and
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[T]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point where the recovery turn begins</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\mu]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Center of the turn circle</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[M]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>M</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point of intersection between
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          and a line perpendicular to <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          that runs through <inline-formula><alternatives>
+          <tex-math><![CDATA[\mu]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula></td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[x]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>x</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Length of line segment from <inline-formula><alternatives>
+          <tex-math><![CDATA[I]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>I</mml:mi></mml:math></alternatives></inline-formula>
+          to <inline-formula><alternatives>
+          <tex-math><![CDATA[\mu]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula></td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[\alpha]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Angle formed by <inline-formula><alternatives>
+          <tex-math><![CDATA[\angle \mu IT]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>∠</mml:mi><mml:mi>μ</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[H]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>H</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point of intersection between
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          and a line perpendicular to <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          that runs through <inline-formula><alternatives>
+          <tex-math><![CDATA[T]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula></td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[F]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>F</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point where recovery turn is finished</td>
+        </tr>
+        <tr>
+          <td><inline-formula><alternatives>
+          <tex-math><![CDATA[V]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>V</mml:mi></mml:math></alternatives></inline-formula></td>
+          <td>Point of intersection between
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{\mu F}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>F</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+          and a line perpendicular to <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{\mu F}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>F</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+          that runs through <inline-formula><alternatives>
+          <tex-math><![CDATA[T]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula></td>
+        </tr>
+      </tbody>
+    </table>
+  </table-wrap>
+  <p></p>
+</sec>
+<sec id="sec-intro">
+  <title>1 Introduction</title>
+  <p>The primary hazard under consideration in this paper is “Departure
+  from the Prepared Surface,” specifically in the context of low,
+  medium, and high speed taxi test. Following established practice, a
+  mitigation for this hazard is the establishment of abort criteria that
+  allow for an abort procedure to provide recovery of the system under
+  test before departing the prepared surface. The concept of horizontal
+  time safety margin resulted deliberations on how to determine the
+  abort criteria during taxi testing of new aircraft design as part of
+  the build up to first flight.</p>
+  <p>The lack of quantitative means of determining abort criteria
+  prompted a search for analogous methods that could inform the
+  development of a quantitative approach. Time safety margin for
+  vertical aerial maneuvering, developed to avoid collision with the
+  surface, has many features in common with the problem of avoiding
+  departing the prepared surface during horizontal ground maneuvering.
+  Borrowing key elements from time safety margin, a horizontal analogy
+  was implemented. The implementation is agnostic to any specific system
+  and requires only basic kinematics for initial estimates.
+  Higher-fidelity estimates can be generated by incorporating models of
+  the system which include inertias and moments, if desired and
+  available.</p>
+</sec>
+<sec id="sec-tsm_origins">
+  <title>2 Time Safety Margin Origins</title>
+  <p>The history and development of time safety margin is well covered
+  by Bill “Evil” Gray in the 412th Test Wing Technical Information
+  Handbook titled “Time Safety Margin: Theory And Practice.”
+  <xref alt="[1]" rid="ref-Gray2016" ref-type="bibr">[1]</xref> Time
+  safety margin was born out of the 2009 fatal mishap of Dave “Cools”
+  Cooley during a diving test maneuver. The basic task of time safety
+  margin is to determine the time an aircraft may remain on its
+  worst-case vector until the planned recovery will no longer be
+  sufficient to prevent a mishap. The necessity for the development of
+  time safety margin was driven by large over- and under-estimations of
+  maneuver setup and abort criteria. The techniques prior to time safety
+  margin were often oversimplified and relied on imprecise or inaccurate
+  assumptions. Over-estimates lead to excessive setup climbs and
+  too-conservative abort calls, driving costs in time, fuel, and
+  unnecessary repeated runs. Under-estimates lead to insufficient margin
+  and an increase in risk exposure. After its incorporation into
+  mandatory Air Force test processes, time safety margin has continued
+  to evolve as exposure to multiple real-life scenarios has unveiled
+  sensitivity to certain test conditions.</p>
+  <p><xref alt="Figure 1" rid="fig-basic-dive">Figure 1</xref> shows the
+  essential components necessary to understand and apply the time safety
+  margin (TSM) concept. As defined in
+  <xref alt="[1]" rid="ref-Gray2016" ref-type="bibr">[1]</xref>, a
+  “maneuver” consists of a “procedure” and a “recovery.” In the figure,
+  the procedure is simple upright pushover bunt dive, and the recovery
+  is an upright pull until level. The “worst-case vector” in this case
+  is the lowest altitude with the steepest angle relative to the ground.
+  Extending the worst-case vector for a duration, the “time safety
+  margin,” generates a straight line, the “TSM path,” that ends at the
+  point where executing the remaining maneuver after the worst-case
+  vector results in a “zero-spatial-margin” recovery not impacting the
+  surface.</p>
+  <fig id="fig-basic-dive">
+    <caption><p>Figure 1: From TSM Theory and Practice, Figure 8 “Basic
+    Dive Recovery Terminology”</p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="images/tsm-theory-and-practice-fig-8.png" />
+  </fig>
+  <p>The complexity of diving maneuvers makes closed-form solutions for
+  determining test safety margin untenable, so even the simplest
+  scenario with the :w most basic assumptions requires numerical methods
+  to simulate the unfolding recovery. Any general approach must consider
+  normal acceleration, true airspeed, Mach number, calibrated airspeed,
+  dynamic pressure, initial aircraft attitude, recovery technique,
+  asymmetric structural load, flight control system limiters, load
+  alleviation systems, engine control system augmentation, and
+  aircraft-specific factors. Time safety margin determination therefore
+  necessitates a software solution, and the most common implementations
+  have taken the form of MATLAB scripts and graphical user
+  interfaces.</p>
+</sec>
+<sec id="sec-taxi_margin">
+  <title>3 Taxi Testing Requires Margins, Too</title>
+  <p>Taxi testing, consisting of ground maneuvers on prepared surfaces
+  such as ramps, taxiways, and runways, may at first glance not seem as
+  catastrophic in its consequences as diving at the ground. However,
+  departure from the prepared surface can result in total destruction of
+  an aircraft, loss of life, and destruction of adjacent property as
+  much as high-speed impact with the ground after an unsuccessful dive
+  recovery. Even minor damage or injury can set a test campaign back and
+  lead to unacceptable losses in schedule, cost, publicity, or trust.
+  So, while possibly not considered as dynamic or risky as aerial
+  vertical maneuvering, ground horizontal maneuvering requires margin,
+  too.</p>
+  <p>The simplest margin is a buffer along the edge of the prepared
+  surface, providing a space-based abort criterion that can allow
+  distance for a recovery maneuver to remain on the prepared surface.
+  But how to determine the size of the buffer? What factors influence
+  the balance between too much buffer and too little buffer? As with
+  diving time safety margin, too much buffer leads to overly constrained
+  maneuver and nuisance abort calls and too little buffer leads to no
+  real mitigation of the hazard. Even before attempting to find that
+  balance, a little further consideration shows that a distance buffer
+  alone is insufficient.</p>
+  <p>The angle at which the aircraft crosses the buffer line greatly
+  affects the ability to recover and remain on the prepared surface.
+  Crossing the line at a right angle, heading directly toward the edge
+  of the prepared surface, offers far less margin than crossing at a
+  shallow angle. Therefore establishing a crossing angle that maintains
+  margin for the recovery maneuver must also enter the balance. Too
+  shallow an angle results in the same excessive margin as too large a
+  distance buffer. Too large an angle results in the same insufficient
+  margin as too small a distance buffer.</p>
+  <p>Intuitively, speed and turn radius also contribute to determining
+  the margin. Speed reduces the time available for the operator to
+  react, and can indirectly affect turn radius. Turn radius is
+  constrained by forces. Skidding puts an upper limit on force available
+  to turn. Structural load limits, the moment that initiates tipping,
+  and shear induced on tires put an upper limit on force allowable to
+  turn. Turning forces are also affected by surface conditions, tire
+  wear, tire temperature, steering kinematics, and steering
+  dynamics.</p>
+</sec>
+<sec id="sec-htsm_concept">
+  <title>4 Horizontal Time Safety Margin Concept</title>
+  <p>How then, to determine the appropriate values of distance buffer
+  and crossing angle for a given speed and turn radius that result in a
+  margin that strikes the balance? The principles of time safety margin
+  can be brought to bear.</p>
+  <p>See <xref alt="Figure 2" rid="fig-basic-turn">Figure 2</xref> for
+  the concept depicted from an overhead view of a hypothetical runway.
+  The figure is drawn to evoke geometry of
+  <xref alt="Figure 1" rid="fig-basic-dive">Figure 1</xref>, as this
+  analogue was the original inspiration for the concept of a horizontal
+  time safety margin. An aircraft is shown traveling from left to right,
+  executing a right turn toward the edge of the runway, then recovering
+  with a left turn with a smaller turn
+  radius.<xref alt="[2]" rid="ref-AirplanePNG" ref-type="bibr">[2]</xref>
+  The aircraft is not-to-scale and shown to assist in the visualization,
+  but no actual aircraft characteristics or dynamics are assumed or
+  depicted. Additionally, the aircraft is treated as a point mass for
+  the purposes of this illustration without considering main gear
+  wheelbase or nose gear geometry.</p>
+  <list list-type="order">
+    <list-item>
+      <p>Distance buffer</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>The distance buffer is a line,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p><inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          is parallel to the edge of the prepared surface,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[E]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p><inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          is also offset from the centerline,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[C]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+      </list>
+    </list-item>
+    <list-item>
+      <p>Recovery maneuver</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>The recovery maneuver is a turn</p>
+        </list-item>
+        <list-item>
+          <p>The turn is planned to begin at the moment of crossing the
+          distance buffer line</p>
+        </list-item>
+        <list-item>
+          <p>The turn is planned to end when the velocity vector is
+          parallel to the edge of the prepared surface and no longer at
+          risk of departing</p>
+        </list-item>
+      </list>
+    </list-item>
+    <list-item>
+      <p>Worst-case vector</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>The worst-case vector is the velocity vector,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[\vec{v}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>v</mml:mi><mml:mo accent="true">→</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+          at the moment of crossing the distance buffer line,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>The vector consists of speed,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[s]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+          and direction, <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+          the angle between the vector, <inline-formula><alternatives>
+          <tex-math><![CDATA[\vec{v}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>v</mml:mi><mml:mo accent="true">→</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+          and the buffer line, <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>The vector is not shown in
+          <xref alt="Figure 2" rid="fig-basic-turn">Figure 2</xref> to
+          avoid cluttering the image</p>
+        </list-item>
+      </list>
+    </list-item>
+    <list-item>
+      <p>Time margin</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>The time margin is a duration</p>
+        </list-item>
+        <list-item>
+          <p>The duration is the time for which the worst-case vector is
+          extended prior to starting the recovery maneuver, shown as the
+          dashed line in
+          <xref alt="Figure 2" rid="fig-basic-turn">Figure 2</xref>.</p>
+        </list-item>
+      </list>
+    </list-item>
+  </list>
+  <fig id="fig-basic-turn">
+    <caption><p>Figure 2: Basic Turn Recovery Inspired by TSM Basic Dive
+    Recovery</p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="marimo-htsm/media/images/BigIdeaDiveCompare.png" />
+  </fig>
+</sec>
+<sec id="sec-htsm_implementation">
+  <title>5 Horizontal Time Safety Margin Implementation</title>
+  <p>To implement the concept, a more detailed look at the geometry is
+  in order. Also, several additional simplifying assumptions are made
+  for the initial implementation:</p>
+  <list list-type="order">
+    <list-item>
+      <p>Constant speed during the full evolution</p>
+    </list-item>
+    <list-item>
+      <p>Circular turns with constant radii</p>
+    </list-item>
+    <list-item>
+      <p>Turn acceleration with no slip, skid, tip, or load
+      exceedance</p>
+    </list-item>
+    <list-item>
+      <p>Symmetry for right and left turns</p>
+    </list-item>
+    <list-item>
+      <p>The speed and angle of the aircraft at the intersection of the
+      ground path and the distance buffer line defines the worst-case
+      vector, and therefore dynamics prior to the crossing can be
+      ignored.</p>
+    </list-item>
+  </list>
+  <p>With those assumptions in place, the following are given, as shown
+  in <xref alt="Figure 3" rid="fig-given">Figure 3</xref>:</p>
+  <list list-type="order">
+    <list-item>
+      <p>a prepared surface with</p>
+      <list list-type="order">
+        <list-item>
+          <p>straight edge, <inline-formula><alternatives>
+          <tex-math><![CDATA[E]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>a width, <inline-formula><alternatives>
+          <tex-math><![CDATA[w]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>w</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>a center_line, <inline-formula><alternatives>
+          <tex-math><![CDATA[C]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>a buffer line parallel to the edge of the prepared surface,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>a buffer distance, <inline-formula><alternatives>
+          <tex-math><![CDATA[b]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula>,
+          from <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+          to <inline-formula><alternatives>
+          <tex-math><![CDATA[E]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>an offset distance, <inline-formula><alternatives>
+          <tex-math><![CDATA[o]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>o</mml:mi></mml:math></alternatives></inline-formula>,
+          from <inline-formula><alternatives>
+          <tex-math><![CDATA[C]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula>
+          to <inline-formula><alternatives>
+          <tex-math><![CDATA[B]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>a halfwidth distance, <inline-formula><alternatives>
+          <tex-math><![CDATA[h = \frac{w}{2}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>h</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mi>w</mml:mi><mml:mn>2</mml:mn></mml:mfrac></mml:mrow></mml:math></alternatives></inline-formula>,
+          from <inline-formula><alternatives>
+          <tex-math><![CDATA[C]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula>
+          to <inline-formula><alternatives>
+          <tex-math><![CDATA[E]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+      </list>
+    </list-item>
+    <list-item>
+      <p>a crossing vector, <inline-formula><alternatives>
+      <tex-math><![CDATA[\vec{v}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>v</mml:mi><mml:mo accent="true">→</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+      with magnitude, speed <inline-formula><alternatives>
+      <tex-math><![CDATA[s]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+      and crossing angle <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+      <list list-type="bullet">
+        <list-item>
+          <p>The assumed constant speed, <inline-formula><alternatives>
+          <tex-math><![CDATA[s]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+          is depicted by showing the vector,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[\vec{v}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>v</mml:mi><mml:mo accent="true">→</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+          in three places</p>
+          <list list-type="order">
+            <list-item>
+              <p>With respect to the centerline,
+              <inline-formula><alternatives>
+              <tex-math><![CDATA[C]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>C</mml:mi></mml:math></alternatives></inline-formula>,
+              with speed <inline-formula><alternatives>
+              <tex-math><![CDATA[s]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>
+              and angle <inline-formula><alternatives>
+              <tex-math><![CDATA[\theta]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+            </list-item>
+            <list-item>
+              <p>With respect to the buffer line,
+              <inline-formula><alternatives>
+              <tex-math><![CDATA[B]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>,
+              with speed <inline-formula><alternatives>
+              <tex-math><![CDATA[s]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>
+              and angle <inline-formula><alternatives>
+              <tex-math><![CDATA[\theta]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+            </list-item>
+            <list-item>
+              <p>After full recovery, with speed
+              <inline-formula><alternatives>
+              <tex-math><![CDATA[s]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>
+              and parallel to the edge, <inline-formula><alternatives>
+              <tex-math><![CDATA[E]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+            </list-item>
+          </list>
+        </list-item>
+      </list>
+    </list-item>
+    <list-item>
+      <p>a desired time margin, <inline-formula><alternatives>
+      <tex-math><![CDATA[t_{margin}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula></p>
+    </list-item>
+    <list-item>
+      <p>a turn radius, <inline-formula><alternatives>
+      <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula></p>
+    </list-item>
+  </list>
+  <fig id="fig-given">
+    <caption><p>Figure 3: The given parameters for horizontal time
+    safety margin</p></caption>
+    <graphic mimetype="image" mime-subtype="png" xlink:href="marimo-htsm/media/images/BigIdeaStaticGiven.png" />
+  </fig>
+  <sec id="sec-calc_theta">
+    <title>5.1 Calculating the Maximum Recoverable Crossing Angle,
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></title>
+    <p>The goal is to calculate the maximum crossing angle,
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+    that allows:</p>
+    <list list-type="order">
+      <list-item>
+        <p>straight line travel for</p>
+        <list list-type="order">
+          <list-item>
+            <p>time, <inline-formula><alternatives>
+            <tex-math><![CDATA[t_{margin}]]></tex-math>
+            <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+            and</p>
+          </list-item>
+          <list-item>
+            <p>distance, <inline-formula><alternatives>
+            <tex-math><![CDATA[d_{margin}]]></tex-math>
+            <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+            where <inline-formula><alternatives>
+            <tex-math><![CDATA[d_{margin} = t_{margin} \cdot s]]></tex-math>
+            <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>=</mml:mo><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></p>
+          </list-item>
+        </list>
+      </list-item>
+      <list-item>
+        <p>then a recovery with radius <inline-formula><alternatives>
+        <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,</p>
+      </list-item>
+      <list-item>
+        <p>that results in the vehicle moving parallel to
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[E]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>E</mml:mi></mml:math></alternatives></inline-formula></p>
+      </list-item>
+      <list-item>
+        <p>without departing the prepared surface</p>
+      </list-item>
+    </list>
+    <p><xref alt="Figure 4" rid="fig-calc-examples">Figure 4</xref>
+    shows three angles that do not meet the desired outcome for the
+    given parameters. Speed, time margin, turn radius, runway
+    dimensions, and buffer distance are the same for all three examples.
+    One angle is too large for the given parameters. Perpendicular to
+    the buffer line, it results in departure from the prepared surface.
+    The other two are too small for the given parameters. While they
+    both result in a safe recovery, they are too shallow for the time
+    margin selected. The two shallow angles result in excessive margin
+    and potentially nuisance abort calls.</p>
+    <fig id="fig-calc-examples">
+      <caption><p>Figure 4: Three angles that result in insufficient
+      margin or excessive margin for the given speed, buffer distance,
+      turn radius and time margin</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="marimo-htsm/media/images/BigIdeaStaticCalculate.png" />
+    </fig>
+    <p>To more precisely state the geometry problem,
+    <xref alt="Figure 5" rid="fig-angles">Figure 5</xref> zooms in to
+    the buffer distance, <inline-formula><alternatives>
+    <tex-math><![CDATA[b]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula>.
+    The figure depicts the geometry for a recovery at the edge of the
+    prepared surface after traveling a straight-line distance for the
+    full duration of the time safety margin.</p>
+    <fig id="fig-angles">
+      <caption><p>Figure 5: Analysis of the desired crossing
+      angle</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="./marimo-htsm/media/images/BigIdeaStaticAngles.png" />
+    </fig>
+    <p>Upon inspection, two right triangles,
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta \mu IT]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>μ</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+    and <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta I\mu M]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>I</mml:mi><mml:mi>μ</mml:mi><mml:mi>M</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+    can be constructed from the following elements:</p>
+    <list list-type="bullet">
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[I]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>I</mml:mi></mml:math></alternatives></inline-formula>,
+        the point of intersection between the ground path and the buffer
+        line</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[T]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula>,
+        the point where the recovery turn begins</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[\mu]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula>,
+        the center of the turn circle</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[M]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>M</mml:mi></mml:math></alternatives></inline-formula>,
+        the point of intersection between the buffer line and a line
+        perpendicular to the buffer line that runs through
+        <inline-formula><alternatives>
+        <tex-math><![CDATA[\mu]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula></p>
+      </list-item>
+    </list>
+    <p>The sides of the triangles can be related to the horizontal time
+    safety margin parameters:</p>
+    <list list-type="bullet">
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[d_{margin}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+        the length of line segment <inline-formula><alternatives>
+        <tex-math><![CDATA[\overline{IT}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula></p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+        the length of line segment <inline-formula><alternatives>
+        <tex-math><![CDATA[\overline{T\mu}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>T</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula></p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[b - r_{turn_{recovery}}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:mrow></mml:math></alternatives></inline-formula>,
+        the length of line segment <inline-formula><alternatives>
+        <tex-math><![CDATA[\overline{M\mu}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula></p>
+      </list-item>
+    </list>
+    <p>The two triangles share a
+    hypotenuse,<inline-formula><alternatives>
+    <tex-math><![CDATA[\overline{I\mu}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>I</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+    with length <inline-formula><alternatives>
+    <tex-math><![CDATA[x]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>x</mml:mi></mml:math></alternatives></inline-formula>.</p>
+    <p><inline-formula><alternatives>
+    <tex-math><![CDATA[\overline{I\mu}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>I</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+    divides the crossing angle, <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+    into two angles:</p>
+    <list list-type="bullet">
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[\alpha]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>,
+        the angle formed by <inline-formula><alternatives>
+        <tex-math><![CDATA[\angle \mu IT]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>∠</mml:mi><mml:mi>μ</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[\theta - \alpha]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mi>α</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+        the angle formed by <inline-formula><alternatives>
+        <tex-math><![CDATA[\angle MI\mu]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>∠</mml:mi><mml:mi>M</mml:mi><mml:mi>I</mml:mi><mml:mi>μ</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></p>
+      </list-item>
+    </list>
+    <p>The angle <inline-formula><alternatives>
+    <tex-math><![CDATA[\alpha]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+    can be related to the horizontal time safety margin parameters using
+    the <inline-formula><alternatives>
+    <tex-math><![CDATA[\tan]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mo>tan</mml:mo></mml:math></alternatives></inline-formula>
+    of <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta \mu IT]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>μ</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+    as shown in
+    <xref alt="Equation 1" rid="eq-alpha">Equation 1</xref>.</p>
+    <p><styled-content id="eq-alpha"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    \alpha = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{d_{margin}} \right)
+     \qquad(1)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>α</mml:mi><mml:mo>=</mml:mo><mml:msup><mml:mo>tan</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p>The angle <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta - \alpha]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mi>α</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+    can be related to the horizontal time safety margin parameters using
+    the <inline-formula><alternatives>
+    <tex-math><![CDATA[\sin]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mo>sin</mml:mo></mml:math></alternatives></inline-formula>
+    of <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta I\mu M]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>I</mml:mi><mml:mi>μ</mml:mi><mml:mi>M</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+    as shown in
+    <xref alt="Equation 2" rid="eq-theta_alpha_x">Equation 2</xref>.</p>
+    <p><styled-content id="eq-theta_alpha_x"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    \theta - \alpha = \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{x}\right)
+     \qquad(2)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mi>α</mml:mi><mml:mo>=</mml:mo><mml:msup><mml:mo>sin</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:mrow><mml:mi>x</mml:mi></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>2</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p>Making use of the Pythagorean Theorem from
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\Delta \mu IT]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>μ</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+    defines <inline-formula><alternatives>
+    <tex-math><![CDATA[x]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>x</mml:mi></mml:math></alternatives></inline-formula>
+    in terms of <inline-formula><alternatives>
+    <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+    and <inline-formula><alternatives>
+    <tex-math><![CDATA[d_{margin}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+    as shown in
+    <xref alt="Equation 3" rid="eq-theta_alpha">Equation 3</xref>.</p>
+    <p><styled-content id="eq-theta_alpha"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    \theta - \alpha = \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + d_{margin}^{2}}} \right)
+     \qquad(3)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mi>α</mml:mi><mml:mo>=</mml:mo><mml:msup><mml:mo>sin</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:mrow><mml:msqrt><mml:mrow><mml:msup><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msubsup><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow><mml:mn>2</mml:mn></mml:msubsup></mml:mrow></mml:msqrt></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>3</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p>When adding the two equations, <inline-formula><alternatives>
+    <tex-math><![CDATA[\alpha]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>α</mml:mi></mml:math></alternatives></inline-formula>
+    drops out and only <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+    remains, providing a closed-form solution for
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+    <xref alt="Equation 4" rid="eq-theta">Equation 4</xref>.</p>
+    <p><styled-content id="eq-theta"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    \theta = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{d_{margin}} \right) + \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + d_{margin}^{2}}} \right)
+     \qquad(4)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>=</mml:mo><mml:msup><mml:mo>tan</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mo>+</mml:mo><mml:msup><mml:mo>sin</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:mrow><mml:msqrt><mml:mrow><mml:msup><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msubsup><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow><mml:mn>2</mml:mn></mml:msubsup></mml:mrow></mml:msqrt></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>4</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <p>Substituting the speed, <inline-formula><alternatives>
+    <tex-math><![CDATA[s]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+    and time margin, <inline-formula><alternatives>
+    <tex-math><![CDATA[t_{margin}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+    for the distance, <inline-formula><alternatives>
+    <tex-math><![CDATA[d_{margin}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+    provides an equation completely in terms of the horizontal time
+    safety margin parameters,
+    <xref alt="Equation 5" rid="eq-theta-full">Equation 5</xref>.</p>
+    <p><styled-content id="eq-theta-full"><disp-formula><alternatives>
+    <tex-math><![CDATA[
+    \theta = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{t_{margin} \cdot s} \right) + \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + \left(t_{margin} \cdot s\right)^{2}}} \right)
+     \qquad(5)]]></tex-math>
+    <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>=</mml:mo><mml:msup><mml:mo>tan</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:mrow><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mo>+</mml:mo><mml:msup><mml:mo>sin</mml:mo><mml:mrow><mml:mi>−</mml:mi><mml:mn>1</mml:mn></mml:mrow></mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:mrow><mml:msqrt><mml:mrow><mml:msup><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mn>2</mml:mn></mml:msup></mml:mrow></mml:msqrt></mml:mfrac><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>5</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+    <boxed-text>
+    <p><bold>Important</bold></p>
+    <p>This function provides the abort angle in radians, given that the
+    distance, time, and speed units are consistent in length and time.
+    As always, careful attention to unit conversions is necessary,
+    especially when working in typical aviation units, when working
+    across teams, and when working with international partners.</p>
+    </boxed-text>
+    <p><xref alt="Figure 6" rid="fig-perfect">Figure 6</xref> provides
+    an example of a geometry using the following values in normalized
+    units as inputs:</p>
+    <list list-type="bullet">
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[b = 4.0]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>b</mml:mi><mml:mo>=</mml:mo><mml:mn>4.0</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>,</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[r_{turn_{recovery}} = 1.0]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub><mml:mo>=</mml:mo><mml:mn>1.0</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>,</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[s = 1.0]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>s</mml:mi><mml:mo>=</mml:mo><mml:mn>1.0</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>,
+        and</p>
+      </list-item>
+      <list-item>
+        <p><inline-formula><alternatives>
+        <tex-math><![CDATA[t_{margin} = 4.0]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>=</mml:mo><mml:mn>4.0</mml:mn></mml:mrow></mml:math></alternatives></inline-formula>.</p>
+      </list-item>
+    </list>
+    <p>This results in an angle of <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta = 1.05981\mathrm{rad} = 60.7226^{\circ}]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>θ</mml:mi><mml:mo>=</mml:mo><mml:mn>1.05981</mml:mn><mml:mrow><mml:mi mathvariant="normal">r</mml:mi><mml:mi mathvariant="normal">a</mml:mi><mml:mi mathvariant="normal">d</mml:mi></mml:mrow><mml:mo>=</mml:mo><mml:msup><mml:mn>60.7226</mml:mn><mml:mo>∘</mml:mo></mml:msup></mml:mrow></mml:math></alternatives></inline-formula>
+    and recovery of a point mass without departing the prepared
+    surface.</p>
+    <fig id="fig-perfect">
+      <caption><p>Figure 6: Demonstration of use of
+      <xref alt="Equation 5" rid="eq-theta-full">Equation 5</xref> to
+      achieve a 4.0 time safety margin</p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="marimo-htsm/media/images/BigIdeaStaticCalculatePerfect.png" />
+    </fig>
+  </sec>
+  <sec id="sec-calc_remaining_params">
+    <title>5.2 Calculating the Remaining Parameters</title>
+    <p>There may be scenarios in which the angle,
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+    is already known or defined. There may also be sensitivity studies
+    in which the effect of varying one parameter on the remaining
+    parameters is of interest. In these scenarios or studies,
+    determining the other parameters may be necessary to fully define or
+    explore the trade space for the abort criteria.</p>
+    <p>With a slight shift in perspective, the other parameters can be
+    determined, given a desired angle and the remaining parameters, as
+    shown in <xref alt="Figure 7" rid="fig-others">Figure 7</xref>. To
+    declutter the figure:</p>
+    <list list-type="bullet">
+      <list-item>
+        <p>the turn radius, <inline-formula><alternatives>
+        <tex-math><![CDATA[r_{turn_{recovery}}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>r</mml:mi><mml:mrow><mml:mi>t</mml:mi><mml:mi>u</mml:mi><mml:mi>r</mml:mi><mml:msub><mml:mi>n</mml:mi><mml:mrow><mml:mi>r</mml:mi><mml:mi>e</mml:mi><mml:mi>c</mml:mi><mml:mi>o</mml:mi><mml:mi>v</mml:mi><mml:mi>e</mml:mi><mml:mi>r</mml:mi><mml:mi>y</mml:mi></mml:mrow></mml:msub></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+        is shown as <inline-formula><alternatives>
+        <tex-math><![CDATA[r]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula>,</p>
+      </list-item>
+      <list-item>
+        <p>the time margin, <inline-formula><alternatives>
+        <tex-math><![CDATA[t_{margin}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>t</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+        is shown as <inline-formula><alternatives>
+        <tex-math><![CDATA[t]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>t</mml:mi></mml:math></alternatives></inline-formula>,
+        and</p>
+      </list-item>
+      <list-item>
+        <p>the time margin distance, <inline-formula><alternatives>
+        <tex-math><![CDATA[d_{margin}]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+        is shown as the product <inline-formula><alternatives>
+        <tex-math><![CDATA[t\cdot s]]></tex-math>
+        <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+        .</p>
+      </list-item>
+    </list>
+    <fig id="fig-others">
+      <caption><p>Figure 7: A shift in geometry yields a closed form
+      solution for the other parameters, given the crossing angle,
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p></caption>
+      <graphic mimetype="image" mime-subtype="png" xlink:href="./marimo-htsm/media/images/BigIdeaStaticOtherAngles.png" />
+    </fig>
+    <sec id="sec-triangle_tih">
+      <title>5.2.1 Triangle <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta TIH]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>T</mml:mi><mml:mi>I</mml:mi><mml:mi>H</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></title>
+      <p>A right triangle, <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta TIH]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>T</mml:mi><mml:mi>I</mml:mi><mml:mi>H</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+      can be defined with</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>vertices at points</p>
+          <list list-type="bullet">
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[I]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>I</mml:mi></mml:math></alternatives></inline-formula>,
+              where the ground path intersects the buffer line,
+              <inline-formula><alternatives>
+              <tex-math><![CDATA[B]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula></p>
+            </list-item>
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[T]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula>,
+              where the turn recovery starts</p>
+            </list-item>
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[H]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>H</mml:mi></mml:math></alternatives></inline-formula>,
+              the point of intersection between
+              <inline-formula><alternatives>
+              <tex-math><![CDATA[B]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+              and a line perpendicular to <inline-formula><alternatives>
+              <tex-math><![CDATA[B]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>B</mml:mi></mml:math></alternatives></inline-formula>
+              that runs through <inline-formula><alternatives>
+              <tex-math><![CDATA[T]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula></p>
+            </list-item>
+          </list>
+        </list-item>
+        <list-item>
+          <p>angle, <inline-formula><alternatives>
+          <tex-math><![CDATA[\angle HIT]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>∠</mml:mi><mml:mi>H</mml:mi><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+          which is also the crossing angle,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>hypotenuse, <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{IT}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+          which is also the time margin distance,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[d_{margin} = t \cdot s]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:msub><mml:mi>d</mml:mi><mml:mrow><mml:mi>m</mml:mi><mml:mi>a</mml:mi><mml:mi>r</mml:mi><mml:mi>g</mml:mi><mml:mi>i</mml:mi><mml:mi>n</mml:mi></mml:mrow></mml:msub><mml:mo>=</mml:mo><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>side, <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{HT}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+          which is opposite <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+      </list>
+      <p><styled-content id="eq-sin-theta-ht"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      \sin\theta = \frac{\overline{HT}}{\overline{IT}} = \frac{\overline{HT}}{t \cdot s}
+       \qquad(6)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mover><mml:mrow><mml:mi>I</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:mfrac><mml:mo>=</mml:mo><mml:mfrac><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mrow><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>6</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{HT}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+      can be expressed in terms of <inline-formula><alternatives>
+      <tex-math><![CDATA[r]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula>,
+      and <inline-formula><alternatives>
+      <tex-math><![CDATA[b]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula>,
+      with the help of another triangle and line segment.</p>
+    </sec>
+    <sec id="sec-triangle_tmuv">
+      <title>5.2.2 Triangle <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta T\mu V]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>T</mml:mi><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+      and Line Segment <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{M\mu}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula></title>
+      <p>A right triangle, <inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta T\mu V]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>T</mml:mi><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+      can be defined with</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>vertices at points</p>
+          <list list-type="bullet">
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[\mu]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>μ</mml:mi></mml:math></alternatives></inline-formula>,
+              the center point of the turn circle</p>
+            </list-item>
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[T]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula>,
+              where the turn recovery starts</p>
+            </list-item>
+            <list-item>
+              <p><inline-formula><alternatives>
+              <tex-math><![CDATA[V]]></tex-math>
+              <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>V</mml:mi></mml:math></alternatives></inline-formula>,</p>
+              <list list-type="bullet">
+                <list-item>
+                  <p>on the line segment <inline-formula><alternatives>
+                  <tex-math><![CDATA[\overline{\mu F}]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>F</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula></p>
+                </list-item>
+                <list-item>
+                  <p><inline-formula><alternatives>
+                  <tex-math><![CDATA[F]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>F</mml:mi></mml:math></alternatives></inline-formula>
+                  is the point where the recovery turn is finished</p>
+                </list-item>
+                <list-item>
+                  <p><inline-formula><alternatives>
+                  <tex-math><![CDATA[V]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>V</mml:mi></mml:math></alternatives></inline-formula>
+                  is the point of intersection between
+                  <inline-formula><alternatives>
+                  <tex-math><![CDATA[\overline{\mu F}]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>F</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+                  and a line perpendicular to
+                  <inline-formula><alternatives>
+                  <tex-math><![CDATA[\overline{\mu F}]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>F</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+                  that runs through <inline-formula><alternatives>
+                  <tex-math><![CDATA[T]]></tex-math>
+                  <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>T</mml:mi></mml:math></alternatives></inline-formula>|</p>
+                </list-item>
+              </list>
+            </list-item>
+          </list>
+        </list-item>
+        <list-item>
+          <p>angle, <inline-formula><alternatives>
+          <tex-math><![CDATA[\angle T\mu V]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>∠</mml:mi><mml:mi>T</mml:mi><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>,
+          which is also the crossing angle,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>hypotenuse, <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{\mu T}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+          which is also the recovery turn radius,
+          <inline-formula><alternatives>
+          <tex-math><![CDATA[r]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula></p>
+        </list-item>
+        <list-item>
+          <p>side, <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{\mu V}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+          which is adjacent to <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+          and therefore <inline-formula><alternatives>
+          <tex-math><![CDATA[\overline{\mu V} = r\cos\theta]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mo>=</mml:mo><mml:mi>r</mml:mi><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi></mml:mrow></mml:math></alternatives></inline-formula></p>
+        </list-item>
+      </list>
+      <p>A line segment, <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{M\mu}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+      can be seen to be the difference between the buffer distance,
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[b]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula>,
+      and the recovery turn radius, <inline-formula><alternatives>
+      <tex-math><![CDATA[r]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula>,
+      thus <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{M\mu} = b - r]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mo>=</mml:mo><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>.</p>
+      <p><inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{HT}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      is equivalent to <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{MV}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+      the sum of <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{M\mu}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>
+      and <inline-formula><alternatives>
+      <tex-math><![CDATA[\overline{\mu V}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:math></alternatives></inline-formula>.</p>
+      <p>Therefore</p>
+      <p><styled-content id="eq-ht"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      \begin{aligned}
+      \overline{HT} = \overline{MV} = &&& \overline{M\mu} & + & \overline{\mu V}\\
+      = &&& \left( b - r\right) & + & \left(r\cos\theta\right) \\
+      = &&& b + r\left(\cos\theta - 1\right) &&
+      \end{aligned}
+       \qquad(7)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mtable><mml:mtr><mml:mtd columnalign="right" style="text-align: right"><mml:mover><mml:mrow><mml:mi>H</mml:mi><mml:mi>T</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mo>=</mml:mo><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover><mml:mo>=</mml:mo></mml:mtd><mml:mtd columnalign="left" style="text-align: left"></mml:mtd><mml:mtd columnalign="right" style="text-align: right"></mml:mtd><mml:mtd columnalign="left" style="text-align: left"><mml:mover><mml:mrow><mml:mi>M</mml:mi><mml:mi>μ</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:mtd><mml:mtd columnalign="right" style="text-align: right"><mml:mi>+</mml:mi></mml:mtd><mml:mtd columnalign="left" style="text-align: left"><mml:mover><mml:mrow><mml:mi>μ</mml:mi><mml:mi>V</mml:mi></mml:mrow><mml:mo accent="true">¯</mml:mo></mml:mover></mml:mtd></mml:mtr><mml:mtr><mml:mtd columnalign="right" style="text-align: right"><mml:mo>=</mml:mo></mml:mtd><mml:mtd columnalign="left" style="text-align: left"></mml:mtd><mml:mtd columnalign="right" style="text-align: right"></mml:mtd><mml:mtd columnalign="left" style="text-align: left"><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mi>b</mml:mi><mml:mo>−</mml:mo><mml:mi>r</mml:mi><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mtd><mml:mtd columnalign="right" style="text-align: right"><mml:mi>+</mml:mi></mml:mtd><mml:mtd columnalign="left" style="text-align: left"><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mi>r</mml:mi><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mtd></mml:mtr><mml:mtr><mml:mtd columnalign="right" style="text-align: right"><mml:mo>=</mml:mo></mml:mtd><mml:mtd columnalign="left" style="text-align: left"></mml:mtd><mml:mtd columnalign="right" style="text-align: right"></mml:mtd><mml:mtd columnalign="left" style="text-align: left"><mml:mi>b</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mtd><mml:mtd columnalign="right" style="text-align: right"></mml:mtd><mml:mtd columnalign="left" style="text-align: left"></mml:mtd></mml:mtr></mml:mtable><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>7</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p>Combining
+      <xref alt="Equation 6" rid="eq-sin-theta-ht">Equation 6</xref> and
+      <xref alt="Equation 7" rid="eq-ht">Equation 7</xref> gives,</p>
+      <p><styled-content id="eq-all-params"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      \sin\theta = \frac{b + r \left(\cos\theta - 1 \right)}{t \cdot s}
+       \qquad(8)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow><mml:mrow><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>8</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><inline-formula><alternatives>
+      <tex-math><![CDATA[\Delta TIH]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>Δ</mml:mi><mml:mi>T</mml:mi><mml:mi>I</mml:mi><mml:mi>H</mml:mi></mml:mrow></mml:math></alternatives></inline-formula>
+      relates all five of the parameters, as shown in
+      <xref alt="Equation 8" rid="eq-all-params">Equation 8</xref>, with
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+      the only parameter included
+      twice.<xref ref-type="fn" rid="fn1">1</xref></p>
+      <p>If <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+      is known, then, the other four parameters can each be solved
+      simply in terms of the remaining parameters, as shown below.</p>
+      <p><styled-content id="eq-time"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      t = \frac{b + r \left(\cos\theta - 1 \right)}{s\sin\theta}
+       \qquad(9)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>t</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow><mml:mrow><mml:mi>s</mml:mi><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>9</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><styled-content id="eq-speed"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      s = \frac{b + r \left(\cos\theta - 1 \right)}{t\sin\theta}
+       \qquad(10)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>s</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>b</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mn>1</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow><mml:mrow><mml:mi>t</mml:mi><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>10</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><styled-content id="eq-buffer"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      b = t \cdot s\sin\theta + r \left(1 - \cos\theta \right)
+       \qquad(11)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>b</mml:mi><mml:mo>=</mml:mo><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi><mml:mo>+</mml:mo><mml:mi>r</mml:mi><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>1</mml:mn><mml:mo>−</mml:mo><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>11</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><styled-content id="eq-radius"><disp-formula><alternatives>
+      <tex-math><![CDATA[
+      r = \frac{t \cdot s\sin\theta - b }{ \cos\theta -1 }
+       \qquad(12)]]></tex-math>
+      <mml:math display="block" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mrow><mml:mi>r</mml:mi><mml:mo>=</mml:mo><mml:mfrac><mml:mrow><mml:mi>t</mml:mi><mml:mo>⋅</mml:mo><mml:mi>s</mml:mi><mml:mo>sin</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mi>b</mml:mi></mml:mrow><mml:mrow><mml:mo>cos</mml:mo><mml:mi>θ</mml:mi><mml:mo>−</mml:mo><mml:mn>1</mml:mn></mml:mrow></mml:mfrac><mml:mspace width="2.0em"></mml:mspace><mml:mrow><mml:mo stretchy="true" form="prefix">(</mml:mo><mml:mn>12</mml:mn><mml:mo stretchy="true" form="postfix">)</mml:mo></mml:mrow></mml:mrow></mml:math></alternatives></disp-formula></styled-content></p>
+      <p><xref alt="Equation 5" rid="eq-theta-full">Equation 5</xref>,
+      <xref alt="Equation 9" rid="eq-time">Equation 9</xref>,
+      <xref alt="Equation 10" rid="eq-speed">Equation 10</xref>,
+      <xref alt="Equation 11" rid="eq-buffer">Equation 11</xref>, and
+      <xref alt="Equation 12" rid="eq-radius">Equation 12</xref> provide
+      a complete description of how to determine the magnitudes of the
+      buffer distance, <inline-formula><alternatives>
+      <tex-math><![CDATA[b]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula>,
+      the time margin, <inline-formula><alternatives>
+      <tex-math><![CDATA[t]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>t</mml:mi></mml:math></alternatives></inline-formula>,
+      the speed, <inline-formula><alternatives>
+      <tex-math><![CDATA[s]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+      the turn radius, <inline-formula><alternatives>
+      <tex-math><![CDATA[r]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula>,
+      and the crossing angle, <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+      that together provide an optimal recovery with no under- or
+      overshooting during recovery.</p>
+    </sec>
+  </sec>
+</sec>
+<sec id="sec-considerations">
+  <title>6 Considerations</title>
+  <p>The simplifying assumptions used to derive the equations above each
+  have additional considerations that will affect the utility of the
+  horizontal time safety margin concept. The section will address a few
+  considerations for each. As ever, safety planning and safe execution
+  rely on:</p>
+  <list list-type="bullet">
+    <list-item>
+      <p>sufficient knowledge of the system under test, including its
+      capabilities, necessary constraints, and inherent margins,</p>
+    </list-item>
+    <list-item>
+      <p>the experience, training, currency, and proficiency of the test
+      team in both system operation and test conduct,</p>
+    </list-item>
+    <list-item>
+      <p>test day conditions,</p>
+    </list-item>
+    <list-item>
+      <p>the regulatory and oversight systems in place for the planning
+      and execution,</p>
+    </list-item>
+    <list-item>
+      <p>the time set aside for dedicated discussion, thought, and
+      experimentation,</p>
+    </list-item>
+    <list-item>
+      <p>and the clarity, conciseness, correctness, and completeness of
+      communication throughout planning and execution.</p>
+    </list-item>
+  </list>
+  <p>As such, no single paper or presentation can suffice for all
+  circumstances.</p>
+  <sec id="sec-consider_angle">
+    <title>6.1 The Angle, <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula></title>
+    <sec id="sec-consider_angle_defn">
+      <title>6.1.1 Angle Definition</title>
+      <p>The direction of the diving time safety margin worst-case
+      vector, <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+      is treated in this paper as essentially the same as the angle at
+      which the vehicle crosses the the buffer line. This can be seen as
+      a somewhat circular, because the buffer line is, in part,
+      established as resulting from the worst-case vector. Which comes
+      first, the angle or the buffer? The decision to set the angle or
+      the buffer distance first is somewhat arbitrary, but can be
+      influenced by the specific test technique that is being employed
+      and the test conditions that must be met for the results to be
+      valid, as well as the nature of the prepared surface.</p>
+    </sec>
+    <sec id="sec-consider_angle_rate">
+      <title>6.1.2 Angular Rate, <inline-formula><alternatives>
+      <tex-math><![CDATA[\dot{\theta}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>θ</mml:mi><mml:mo accent="true">̇</mml:mo></mml:mover></mml:math></alternatives></inline-formula>,
+      and Angular Acceleration, <inline-formula><alternatives>
+      <tex-math><![CDATA[\ddot{\theta}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>θ</mml:mi><mml:mo accent="true">̈</mml:mo></mml:mover></mml:math></alternatives></inline-formula></title>
+      <p>The simplifying assumptions do not address angle rate at all,
+      and in fact the entire treatment assumes a point mass. Angular
+      momentum of a vehicle that is rotating toward the edge of the
+      prepared surface must be negated and in fact reversed. This
+      requires torque, which in turn requires reaction forces with the
+      prepared surface, and which must be transferred from the surface,
+      through the physical geometry of the vehicle. The extent and
+      strength of any subcomponents and their connections to the vehicle
+      can impose additional constraints on the rate and acceleration of
+      the angle.</p>
+      <p>Additionally, the control system itself may have some
+      constraint on the rate or acceleration, either due to operator
+      inputs via inceptor design, control system logic via limiters or
+      inherent properties, control system implementation via feedback or
+      estimations, or effector characteristics such as flow rate limits,
+      hardstops, or other nonlinearities.</p>
+    </sec>
+    <sec id="sec-consider_angle_prox">
+      <title>6.1.3 Proximity to the Centerline and the Edge</title>
+      <p>Larger angles may be tolerated toward the center of the
+      prepared surface than toward the edge. A single abort angle
+      <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+      is typically applicable for a single combination of parameters,
+      including buffer distance. In a dynamic, real-time execution, a
+      single <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+      can actually lead to confusion and additional test team workload
+      to determine, in the moment, whether this is the region or
+      circumstance in which <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+      applies and whether an “ABORT ABORT ABORT Angle” call is
+      warranted. Multiple “zones” on the prepared surface increase the
+      complexity of test conduct and can result in the very situations
+      horizontal time safety margin is attempting to mitigate, namely
+      abort calls that are too soon, and therefore a nuisance, or too
+      late, and there for disastrous.</p>
+      <p>Test aids for visualizing the situation can assist, but
+      themselves become safety-critical products that must be validated
+      and version-controlled. Such aids could include:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>for a static <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>,
+          regions of the prepared surface which are “free-movement”,
+          “subject to <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>”,
+          and “abort for proximity to edge”</p>
+        </list-item>
+        <list-item>
+          <p>a real-time (or faster-than-real-time) dynamically
+          calculated <inline-formula><alternatives>
+          <tex-math><![CDATA[\theta_{abort}]]></tex-math>
+          <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msub><mml:mi>θ</mml:mi><mml:mrow><mml:mi>a</mml:mi><mml:mi>b</mml:mi><mml:mi>o</mml:mi><mml:mi>r</mml:mi><mml:mi>t</mml:mi></mml:mrow></mml:msub></mml:math></alternatives></inline-formula>
+          that is compared with the current angle with the edge of the
+          prepared surface, for a given minimum time safety margin
+          value</p>
+        </list-item>
+      </list>
+    </sec>
+  </sec>
+  <sec id="sec-consider_speed">
+    <title>6.2 The Speed, <inline-formula><alternatives>
+    <tex-math><![CDATA[s]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula></title>
+    <sec id="sec-consider_speed_defn">
+      <title>6.2.1 Speed Definition</title>
+      <p>The other component of the time safety margin worst-case,
+      magnitude or speed, <inline-formula><alternatives>
+      <tex-math><![CDATA[s]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>s</mml:mi></mml:math></alternatives></inline-formula>,
+      is treated in this paper in a similar fashion as the angle, namely
+      the speed at which the vehicle crosses the buffer line, with the
+      same considerations of the worst-case vector direction.</p>
+    </sec>
+    <sec id="sec-consider_speed_accel">
+      <title>6.2.2 Linear Acceleration, <inline-formula><alternatives>
+      <tex-math><![CDATA[\dot{s}]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mover><mml:mi>s</mml:mi><mml:mo accent="true">̇</mml:mo></mml:mover></mml:math></alternatives></inline-formula></title>
+      <p>Also similar to the angle, the simplifying assumptions treat
+      the speed as constant throughout the time safety margin extension
+      of the worst-case vector, as well as during the constant turn
+      radius recovery maneuver. This is likely the largest deviation
+      from actual execution, as thrust, aerodynamic drag, rolling
+      friction, and use of energy management devices often result in
+      speed changes.</p>
+      <p>Therefore, “constant speed” is the least likely assumption to
+      hold, but it is also the assumption most likely to result in
+      actual margins being greater than calculated. Simply by including
+      any energy-decreasing actions as part of the abort procedure, the
+      speed can be expected to be less than that used in the horizontal
+      time safety margin calculation, resulting in:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>more time available</p>
+        </list-item>
+        <list-item>
+          <p>excess buffer distance</p>
+        </list-item>
+        <list-item>
+          <p>more angle available</p>
+        </list-item>
+        <list-item>
+          <p>excess turn radius</p>
+        </list-item>
+      </list>
+      <p>Techniques such as “Throttle - IDLE” and “Brakes - APPLY” are
+      fairly common in many ground maneuvering tests, both of which
+      contribute to reducing the speed for some systems under certain
+      conditions.</p>
+      <p>Conversely, any setup, test, or recovery techniques that could
+      lead to acceleration and an increase in speed would result in
+      insufficient margin.</p>
+    </sec>
+  </sec>
+  <sec id="sec-consider_buffer">
+    <title>6.3 The Buffer Distance, <inline-formula><alternatives>
+    <tex-math><![CDATA[b]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>b</mml:mi></mml:math></alternatives></inline-formula></title>
+    <sec id="sec-consider_buffer_defn">
+      <title>6.3.1 Buffer Definition</title>
+      <p>The buffer distance is the parameter most at the discretion of
+      the test team. It is also the simplest: a distance, perpendicular
+      to the edge of the prepared surface, forming a buffer line, beyond
+      which testing will cease and a recovery maneuver will commence.
+      The simple definition can mask the complexity of determining a
+      useful buffer, and it may be advisable to have the buffer distance
+      fall out of the equations as one of the last parameters whose
+      values is set.</p>
+    </sec>
+    <sec id="sec-consider_buffer_veh_geom">
+      <title>6.3.2 Vehicle Geometry</title>
+      <p>The example above treats the vehicle as a point mass, but
+      vehicles will typically have 3 or more geometrically distributed
+      points of contact with the ground. Additionally, vehicles
+      typically have portions of their geometries that extend beyond the
+      ground points of contact.</p>
+      <p>A main gear tire could end up off the prepared surface if track
+      width, defined as the lateral extent of ground contacts, is not
+      considered, even if the center of mass “recovers” at the edge of
+      the prepared surface. It is recommended to take half of the track
+      width as an additional offset in addition to the buffer distance
+      to ensure all of the ground contact points remain on the prepared
+      surface.</p>
+      <p>Likewise, the nose gear could leave the prepared surface if
+      wheel base, defined as the longitudinal extent of ground contacts,
+      is not considered. It is recommended that a ground track for the
+      nosewheel be estimated to determine if additional offset is
+      required for the test and recovery conditions. This initial
+      treatment of horizontal time safety margin does not explore the
+      conditions where nosewheel track becomes critical, but intuition
+      suggests that for shallower crossing angles track width is more
+      critical and for larger crossing angles wheel base is more
+      critical.</p>
+      <p>Similar considerations apply for the full vehicle geometry
+      beyond the extent of the ground points of contact, including nose,
+      wings, and empennage, to mitigate collision with objects or
+      personnel in the vertical dimension. Carefully survey test
+      locations to account for three dimensional collisions. An example
+      might be taxi testing in proximity to a hangar. Accounting for
+      wheel base and track width will not be enough to avoid collision
+      without sufficient three-dimensional margin.</p>
+    </sec>
+  </sec>
+  <sec id="sec-consider_radius">
+    <title>6.4 The Turn Radius, <inline-formula><alternatives>
+    <tex-math><![CDATA[r]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>r</mml:mi></mml:math></alternatives></inline-formula></title>
+    <sec id="sec-consider_radius_defn">
+      <title>6.4.1 Turn Radius Definition</title>
+      <p>Turn radius is the distance from the center of gravity to the
+      instantaneous center of the turn circle. The assumption is that
+      this radius is constant. This parameter is almost completely
+      defined by vehicle geometry and kinematics, but dynamics can also
+      influence the smallest acceptable turn radius.</p>
+    </sec>
+    <sec id="sec-consider_radius_geom">
+      <title>6.4.2 Geometry and Kinematics</title>
+      <p>The geometry of ground contact points with respect to the
+      vehicle center of mass, including wheel base fore and aft of the
+      center of mass and the track width right and left of the center of
+      mass, describes the kinematics of turning. Depending on the
+      steering method for the vehicle, there is typically a
+      kinematically determined minimum turn radius. For example, given
+      nosewheel or tailwheel steering, there may be a maximum steering
+      angle available, which would determine the minimum turn
+      radius.</p>
+    </sec>
+    <sec id="sec-consider_radius_dynamics">
+      <title>6.4.3 Dynamics</title>
+      <p>Turn radius is greatly affected by forces at the ground contact
+      points and at aerodynamic control surfaces. The means of steering
+      can have a significant effect both on the available turn radius
+      and the constancy of the turn radius.</p>
+      <p>The primary means of directional control on the ground are:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>Nosewheel steering</p>
+        </list-item>
+        <list-item>
+          <p>Differential braking</p>
+        </list-item>
+        <list-item>
+          <p>Rudder effector (or equivalent)</p>
+        </list-item>
+        <list-item>
+          <p>Differential thrust (if available)</p>
+        </list-item>
+      </list>
+      <p>The dynamics of each of these means vary greatly between
+      systems, so knowledge of the system under test is essential for
+      safe and effective safety planning and test conduct.</p>
+      <p>It is important to set aside time and provide resources for
+      intentional development of test and recovery techniques for the
+      system under test. Some techniques that work on one system may be
+      “negative training” for another system. For example, if
+      differential thrust is the most effective means of directional
+      control, then “Throttle - IDLE” on all available engines or on the
+      incorrect engine may result in disaster.</p>
+    </sec>
+  </sec>
+  <sec id="sec-consider_time">
+    <title>6.5 The Time Margin, <inline-formula><alternatives>
+    <tex-math><![CDATA[t]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>t</mml:mi></mml:math></alternatives></inline-formula></title>
+    <sec id="sec-consider_time_defn">
+      <title>6.5.1 Time Margin Definition</title>
+      <p>Time margin is well-described in
+      <xref alt="Section 2" rid="sec-tsm_origins">Section 2</xref> and
+      <xref alt="Section 4" rid="sec-htsm_concept">Section 4</xref>. The
+      largest consideration of the definition is determining, for each
+      test and recovery maneuver combination, the transition point out
+      of the test manuever and into the recovery maneuver, then padding
+      that transition with the time margin.</p>
+    </sec>
+    <sec id="sec-consider_time_duration">
+      <title>6.5.2 Duration Selection</title>
+      <p>A default of 4 seconds time margin for ground maneuvering,
+      based on the work of Gray and the AGCAS team, is a solid starting
+      point from which to deviate. Complexity or simplicity of the test
+      maneuver, the recovery maneuver, and the transition between them
+      can move the needle on time margin duration. Readiness of the test
+      team can also affect the appropriate duration. The total available
+      margin for test can also factor in. A very large surface with very
+      simple maneuvers has inherently larger margins. A small surface
+      with complex maneuvers has inherently smaller margins.</p>
+      <p>For scenarios with inherently smaller margins, the Air Force
+      Test Center recommended mitigations for smaller time margin
+      durations are a good practice, as shown in
+      <xref alt="Table 1" rid="tbl-afman_tsm">Table 1</xref>.<xref alt="[3]" rid="ref-AFMAN11-2FTV3" ref-type="bibr">[3]</xref></p>
+      <fig id="tbl-afman_tsm">
+        <caption><p>Table 1: Air Force Manual 11-2FTV3 TSM Risk
+        Assessment</p></caption>
+        <table-wrap>
+          <table>
+            <colgroup>
+              <col width="14%" />
+              <col width="14%" />
+              <col width="14%" />
+              <col width="14%" />
+              <col width="14%" />
+              <col width="14%" />
+              <col width="14%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Short Title</th>
+                <th>TSM Range [sec]</th>
+                <th>Minimum Planning Fidelity</th>
+                <th>Recovery Procedure</th>
+                <th>Minimum Training &amp; Buildup</th>
+                <th>Recovery Initiation Call</th>
+                <th>Baseline Post-Mitigation Risk Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Routine</td>
+                <td>t ≥ 8</td>
+                <td>Normal ops</td>
+                <td>Routine</td>
+                <td>Not Required</td>
+                <td>Pilot</td>
+                <td>Low</td>
+              </tr>
+              <tr>
+                <td>Focused</td>
+                <td>8 &gt; t ≥ 4</td>
+                <td>M&amp;S</td>
+                <td>Defined &amp; Documented</td>
+                <td>In-Flight Buildup</td>
+                <td>Pilot</td>
+                <td>Low</td>
+              </tr>
+              <tr>
+                <td>Aided</td>
+                <td>4 &gt; t ≥ 2.5</td>
+                <td>Best Available M&amp;S</td>
+                <td>Defined &amp; Documented</td>
+                <td>Sim Rehearsal &amp; In-Flight Buildup</td>
+                <td>Backup for Pilot</td>
+                <td>Low-Med</td>
+              </tr>
+              <tr>
+                <td>Redundantly Aided</td>
+                <td>2.5 &gt; t ≥ 1.5</td>
+                <td>Best Available M&amp;S</td>
+                <td>Defined &amp; Documented</td>
+                <td>Sim Rehearsal &amp; In-Flight Buildup</td>
+                <td>Two Backups for Pilot &amp; Anticipatory Cueing
+                Desired</td>
+                <td>Med-High</td>
+              </tr>
+              <tr>
+                <td>Cued Anticipation</td>
+                <td>1.5 &gt; t ≥ 0</td>
+                <td>Best Available M&amp;S</td>
+                <td>Defined &amp; Documented</td>
+                <td>Sim Rehearsal &amp; In-Flight Buildup</td>
+                <td>Two Backups for Pilot &amp; Anticipatory Cueing
+                Required</td>
+                <td>High</td>
+              </tr>
+            </tbody>
+          </table>
+        </table-wrap>
+      </fig>
+    </sec>
+  </sec>
+  <sec id="sec-consider_interactions">
+    <title>6.6 Parameter Interactions</title>
+    <p>The above considerations are primarily single-parameter, however,
+    there are significant interactions between parameters.</p>
+    <sec id="sec-consider_speed_radius">
+      <title>6.6.1 Speed and Turn Radius</title>
+      <p>Speed and turn radius are roughly proportional, but specific
+      relationships depend heavily on the system configuration and
+      surface conditions. In general, the higher the speed, the larger
+      the turn radius, and vice versa.</p>
+      <p>Skidding and slipping are primary factors in determining the
+      relationship between speed and turn radius. In turns, the higher
+      the speed the greater the lateral forces are exerted on ground
+      contact points, which can lead to skids. Skidding can also occur
+      due to brake torque increasing beyond rolling friction torque.
+      Skidding is generally to be avoided, as it makes recovery highly
+      unpredictable, increases turn radius, and can increase wear on
+      tires.</p>
+      <p>Anti-skid braking systems can mitigate some skidding concerns
+      when using brakes for energy management or for directional
+      control. But reliance on anti-skid braking systems when planning
+      for safety margin can result in sudden loss of margin if the
+      anti-skid braking system is mis-tuned or malfunctions. Also,
+      anti-skid braking systems can excite structural vibration modes
+      that expose the system to other hazards. A conservative approach
+      will assume no anti-skid braking system available, unless the
+      system is very mature and other contingency maneuvers are
+      planned.</p>
+      <p>Structural load limits are another factor that causes turn
+      radius to increase with speed. Lateral loads are the source of the
+      centripetal acceleration towards the inside of the turn circle.
+      The smaller the radius and higher the speed, the larger the
+      necessary force to keep the turn constant.</p>
+      <p>It is possible for some systems to have minimum allowable turn
+      radius be a function of speed, which simplifies the modeling. In
+      the absence of such explicit relationships, it’s important to
+      realize that speed and turn radius are not independent, and to
+      cross-check turn radius values with engineering judgement.</p>
+    </sec>
+    <sec id="sec-consider_interactions_buffer_radius_angle">
+      <title>6.6.2 Buffer Distance, Turn Radius, and Angle</title>
+      <p>The interaction between buffer distance, turn radius, and angle
+      is such that, the shallower the angle, the larger the maximum
+      possible turn radius and the smaller the minimum possible buffer
+      distance. As the angle approaches perpendicular to the buffer line
+      and the edge, the buffer distance must be greater than the turn
+      radius to allow for any time margin. Thus, the greater the
+      crossing angle, the greater the buffer distance compared to the
+      turn radius.</p>
+    </sec>
+    <sec id="sec-consider_interactions_speed_time_angle">
+      <title>6.6.3 Speed, Time Margin, and Angle</title>
+      <p>The speed and time margin combine to become the distance margin
+      available. The larger the distance margin, the smaller the angle
+      available. Time margin should only be decreased for solid
+      technical reasons to meet high-value test objectives. Thus, the
+      distance margin will typically be primarily a result of speed, and
+      test teams can expect to have smaller abort angles at higher
+      speeds.</p>
+    </sec>
+  </sec>
+  <sec id="beyond-horizontal-time-safety-margin">
+    <title>6.7 Beyond Horizontal Time Safety Margin</title>
+    <sec id="test-technique-and-test-condition-selection">
+      <title>6.7.1 Test Technique and Test Condition Selection</title>
+      <p>The best test point is the test point that doesn’t need to be
+      executed. Live test with full-scale assets is expensive in many
+      ways, and exposing the test team, the system under test, and the
+      people and property in the vicinity of the test to the risks
+      inherent in test operations should be done with intention and with
+      clear purpose. The next best test point is the test point that is
+      executed in a manner tailored to the system and its environment,
+      not one transferred from another system and another context
+      without customization. Horizontal time safety margin is a method
+      for planning and applying safety constraints to a test maneuver,
+      but careful thought should be applied to whether the test maneuver
+      should be included in the test campaign at all.</p>
+    </sec>
+    <sec id="longitudinal-time-safety-margin">
+      <title>6.7.2 “Longitudinal” Time Safety Margin?</title>
+      <p>The horizontal time safety margin developed here could be
+      called “lateral or yaw time safety margin,” as it only is
+      concerned with recovery at the edge of the prepared surface
+      parallel to the centerline. The margin required to avoid departing
+      the end of the prepared surface in the longitudinal direction is
+      not considered here. Contingencies in the case of loss of energy
+      management devices (brakes, anti-skid systems, aerodynamic
+      braking, etc) need to be considered, as well.</p>
+    </sec>
+    <sec id="consequences-of-experiencing-the-hazard">
+      <title>6.7.3 Consequences of Experiencing the Hazard</title>
+      <p>Not all test limits are created equal. The transition between
+      the prepared surface and the surrounding environment relates
+      directly to the urgency and intensity of abort calls and
+      procedures. A painted line on a dry lakebed is not the same as a
+      literal cliff adjacent to the prepared surface, for example.
+      Adjust test procedures and conduct to reflect the severity of
+      consequences should the hazard be encountered.</p>
+    </sec>
+  </sec>
+</sec>
+<sec id="sec-results">
+  <title>7 Results During A Taxi Test Campaign</title>
+  <p>The first applications of horizontal time safety margin were
+  implemented during low-speed taxi. Low-speed was defined as the speed
+  region in which aerodynamics had negligible contributions to
+  directional control or vertical forces. Initial testing was conducted
+  prior to the development of horizontal time safety margin. The first
+  low-speed taxi runs were executed on ramp spaces to avoid interfering
+  with daily general aviation operations. Buffer distances were
+  established on the ramp spaces and object collision was a higher
+  hazard than departure from the prepared surface. Once basic
+  maneuverability and speed control was confirmed, low-speed testing
+  proceeded to fairly narrow taxiways, approximately three to four times
+  the track width. Taxiway buffer distances were established as a
+  function of track width and desired distance from centerline. Angle
+  offsets from centerline were small and speeds were low enough that any
+  brake application promptly stopped the aircraft.</p>
+  <p>Low- and medium-speed taxi then progressed to runways. Medium-speed
+  was defined as the speed region in which the rudder had sufficient
+  control authority to be used for directional control but the wings did
+  not produce enough lift for unintentional liftoff and the elevator did
+  not have sufficient control authority to raise the nose gear off the
+  ground. Nosewheel steering was disabled during the transition from
+  low- to medium-speed taxi. Runway testing was the context in which
+  horizontal time safety margin was conceived. Test techniques included
+  intentional changes of heading to assess directional control margins.
+  A previous test campaign had put off directional control evaluations
+  until straight-line acceleration and braking were explored, but
+  objectionable directional control handling was discovered during
+  contingency operations, which is not the time to be discovering
+  directional control issues. Therefore, for this campaign, directional
+  control was explored early.</p>
+  <p>As the test team discussed appropriate abort criteria, the
+  insufficiency of buffer distance alone became apparent as larger
+  heading offsets were considered. As horizontal time safety margin was
+  being initially implements, buffer distances were held constant and
+  abort angles were calculated for each target test speed. At the time,
+  the closed form solution of
+  <xref alt="Equation 5" rid="eq-theta-full">Equation 5</xref> had not
+  been derived, so a brute force spreadsheet optimization technique was
+  used for the calculations. Some basic assumptions about nosewheel
+  skidding allowed for a relationship between speed and minimum turn
+  radius, so the minimum turn radius became a function of speed and was
+  not included separately.</p>
+  <p>For slower speeds, abort angle is very sensitive to changes in
+  speed, which meant keeping up with a large number of abort criteria
+  for a given set of test conditions. The complexity of updating abort
+  angles for each test condition became a distraction during test
+  conduct. As speeds increased, the calculated abort angles decreased
+  less for each increment that speed increased as the angle became less
+  sensitive to speed at higher speeds. The test team noticed that, since
+  abort angles consistently decreased with increasing speeds, an abort
+  angle for a given speed was conservative for all slower speeds. A
+  “tiered” set of abort angles was developed, making use of the change
+  in sensitivity and the fact that any abort angle at a given speed
+  “covered” slower speeds. A table of two tiers was developed, based on
+  speed values rounded up to the nearest 5 or 10 knot increment, such
+  that a “low-medium speed” abort angle and a “high speed” abort angle
+  for a given test location sufficed.</p>
+  <p>At higher speeds, the abort angle reduced to small values, three to
+  five degrees, emphasizing to the test team that large directional
+  control inputs at higher speeds was cause for an abort, even before a
+  heading change developed. This was certainly the intuition of the test
+  team already after significant prior education, training, and
+  experience, but horizontal time safety margin provided a physical
+  foundation for that intuition, along with a tangible and calculable
+  constraint based on that foundation.</p>
+</sec>
+<sec id="sec-conclusions">
+  <title>8 Conclusions</title>
+  <p>Horizontal time safety margin provides a quantitative basis for
+  safety planning and test conduct of ground maneuvering test and
+  recovery techniques. With a few simplifying assumptions, a reasonable
+  estimate for buffer distances and abort angle criteria can be
+  calculated for a system under test executing a test technique under a
+  test condition on a given prepared surface. Horizontal time safety
+  margin is appropriate for ramp, taxiway, and runway testing from low-
+  through high-speed taxi testing.</p>
+  <p>The desired outcome of this paper and the accompanying presentation
+  is to solicit feedback on the approach and to increase fidelity where
+  appropriate. Additional considerations not covered here may surface
+  during implementation in other contexts.</p>
+</sec>
+<sec id="sec-ack">
+  <title>Acknowledgments</title>
+  <list list-type="bullet">
+    <list-item>
+      <p>William “Evil” ‘Bill’ Gray for not only the original
+      contributions to the subject, but the thorough documentation of
+      the context and discussion surrounding diving time safety
+      margin.</p>
+    </list-item>
+    <list-item>
+      <p>Jackson Cook for providing a return on the investment into his
+      undergraduate math degree, resulting in a closed-form solution for
+      determining <inline-formula><alternatives>
+      <tex-math><![CDATA[\theta]]></tex-math>
+      <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+      based on a re-imagining of the trigonometry involved, which had
+      eluded his father for more than a year.
+      <xref alt="Figure 5" rid="fig-angles">Figure 5</xref> is his
+      direct contribution, without which this paper would have suffered
+      greatly.</p>
+    </list-item>
+    <list-item>
+      <p>Michael “Ramjet” ‘Mick’ Mansfield for supporting this extension
+      of prior practice into a new domain while under intense pressure
+      to perform on a clean-sheet aircraft design.</p>
+    </list-item>
+    <list-item>
+      <p>The test pilots who put horizontal time safety margin through
+      its paces: Kris “WigB” Rorberg, Tom “Sally” Fields, Jeremy “NOVA”
+      Vanderhal, Brett “Pugs” Pugsley, and David “Pimp” ‘Kees’
+      Allamondola.</p>
+    </list-item>
+    <list-item>
+      <p>Madeleine “Mad” Graham, Mark “SCIPR” Jones, Tom “Sulu” Hill,
+      NOVA, and Pimp for their insightful feedback.</p>
+    </list-item>
+  </list>
+</sec>
+<sec id="sec-ref">
+  <title>References</title>
+</sec>
+<sec id="sec-bio">
+  <title>Biography</title>
+  <p><bold>Nathan “CAP’N” Cook</bold>, SFTE Fellow and a United States
+  Air Force civil servant test engineer for 21 years, entered the
+  startup world in 2023, first as Principal Flight Test Engineer and
+  Test Conductor during Hermeus Quarterhorse Mk0 and Mk1 Taxi Test, and
+  now as Principal Flight Test Engineer at EpiSci testing sUAS
+  collaborative autonomy mesh networks and Group 5 flight and mission
+  autonomy.</p>
+  <p><bold>Jackson Cook</bold> graduated from the University of Florida
+  in December 2024 with a Bachelor’s of Science in Mathematics and a
+  minor in Chinese. Topics of interest for him include algebra,
+  topology, and combinatorics. Currently, Jackson works as an educator
+  at a science center, tutors math, and does freelance video editing. He
+  is also collaborating in a project studying algebraic structures, such
+  as monoids, internal to graphs.</p>
+  <p></p>
+</sec>
+<sec id="sec-python">
+  <title>Appendix A - Python Implementation</title>
+  <p><xref alt="Equation 5" rid="eq-theta-full">Equation 5</xref>,
+  <xref alt="Equation 9" rid="eq-time">Equation 9</xref>,
+  <xref alt="Equation 10" rid="eq-speed">Equation 10</xref>,
+  <xref alt="Equation 11" rid="eq-buffer">Equation 11</xref>, and
+  <xref alt="Equation 12" rid="eq-radius">Equation 12</xref> can be
+  implemented in Python using the <monospace>numpy</monospace> package
+  for the trigonometric functions <monospace>arcsin</monospace>,
+  <monospace>arctan</monospace>, and <monospace>sqrt</monospace>. These
+  functions are defined with arbitrary default values of buffer
+  distance, <monospace>buffer</monospace>, recovery turn radius,
+  <monospace>radius</monospace>, speed, <monospace>speed</monospace>,
+  and time safety margin duration, <monospace>time</monospace>. These
+  default values allow the functions to return a value in the absence of
+  one or more input argument definitions.</p>
+  <code language="python">from numpy import arcsin, arctan, sqrt
+
+
+def abort_angle(buffer=4.0, radius=1.0, speed=1.0, time=4.0):
+    return float(
+        arctan(radius / (time * speed))
+        + arcsin((buffer - radius) / sqrt(radius**2 + (time * speed) ** 2))
+    )
+
+
+def abort_buffer(angle=abort_angle(), radius=1.0, speed=1.0, time=4.0):
+    return float(time * speed * np.sin(angle) + radius * (1 - np.cos(angle)))
+
+
+def time_margin(buffer=4.0, radius=1.0, speed=1.0, angle=abort_angle()):
+    return float(
+        (buffer + radius * (np.cos(angle) - 1)) / (speed * np.sin(angle))
+    )
+
+
+def abort_speed(buffer=4.0, radius=1.0, angle=abort_angle(), time=4.0):
+    return float(
+        (buffer + radius * (np.cos(angle) - 1)) / (time * np.sin(angle))
+    )
+
+
+def abort_radius(buffer=4.0, angle=abort_angle(), speed=1.0, time=4.0):
+    return float((time * speed * np.sin(angle) - buffer) / (np.cos(angle) - 1))</code>
+</sec>
+</body>
+
+<back>
+<ref-list>
+  <title></title>
+  <ref id="ref-Gray2016">
+    <element-citation>
+      <person-group person-group-type="author">
+        <name><surname>Gray</surname><given-names>William R.</given-names></name>
+      </person-group>
+      <article-title>Time Safety Margin: Theory And Practice</article-title>
+      <year iso-8601-date="2016-09">2016</year><month>09</month>
+      <uri>https://apps.dtic.mil/sti/citations/AD1020034</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-AirplanePNG">
+    <element-citation>
+      <article-title>Airplane Top View PNGs by Vecteezy</article-title>
+      <uri>https://www.vecteezy.com/free-png/airplane-top-view</uri>
+    </element-citation>
+  </ref>
+  <ref id="ref-AFMAN11-2FTV3">
+    <element-citation>
+      <article-title>Flight Test Operations Procedures</article-title>
+      <year iso-8601-date="2020-12-29">2020</year><month>12</month><day>29</day>
+      <uri>https://static.e-publishing.af.mil/production/1/af_a3/publication/afman11-2ftv3/afman11-2ftv3.pdf</uri>
+    </element-citation>
+  </ref>
+</ref-list>
+<fn-group>
+  <fn id="fn1">
+    <label>1</label><p>The fact that <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>
+    appears twice in this equation within trigonometric functions is
+    what prevents this equation from being used to solve for
+    <inline-formula><alternatives>
+    <tex-math><![CDATA[\theta]]></tex-math>
+    <mml:math display="inline" xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>θ</mml:mi></mml:math></alternatives></inline-formula>,
+    thus the derivation in
+    <xref alt="Section 5.1" rid="sec-calc_theta">Section 5.1</xref></p>
+  </fn>
+</fn-group>
+</back>
+
+
+
+</article>

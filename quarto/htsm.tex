@@ -1,0 +1,1730 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
+\usepackage[lmargin=1in,rmargin=1in,tmargin=1in,bmargin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage{scrlayer-scrpage}
+\rohead{The Society of Flight Test Engineers}
+\lofoot{SFTE 2025 International Symposium}    
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
+\@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Horizontal Time Safety Margin},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Horizontal Time Safety Margin}
+\author{Nathan Cook \and Jackson Cook}
+\date{}
+\begin{document}
+\maketitle
+
+
+This work is licensed under
+\href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{CC BY-NC-SA
+4.0}
+
+\section*{Abstract}\label{sec-abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+A technique is developed for establishing safety constraints during
+ground test directional maneuvering. The technique is applicable to any
+operation in an environment with hazards associated with departing a
+prepared surface or violating proximity buffers around personnel or
+property. The name ``Horizontal Time Safety Margin'' is inspired by the
+Time Safety Margin (TSM) approach to establishing abort criteria for
+highly dynamic vertical flight test maneuvering developed at Edwards
+AFB, honoring the legacy of David ``Cools'' Cooley. Previous TSM work is
+reviewed, and a general approach is provided to allow the specific
+constraints of any system under test to be factored into implementation.
+Considerations and lessons learned are discussed, based on recent taxi
+testing.
+
+\section*{Acronyms, Abbreviations, Symbols}\label{sec-acronyms}
+\addcontentsline{toc}{section}{Acronyms, Abbreviations, Symbols}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Acronym
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+TSM & Time Safety Margin \\
+M\&S & Modeling and Simulation \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Prepared Surface Symbol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(B\) & Distance buffer line \\
+\(E\) & Edge of prepared surface \\
+\(C\) & Centerline of prepared surface \\
+\(w\) & Width between edges of prepared surface \\
+\(o\) & Offset distance between centerline prepared surface and distance
+buffer line \\
+\(h\) & Halfwidth distance from centerline to edge of prepared
+surface \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Horizontal Time Safety Margin Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definitions
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(b\) & Buffer distance between distance buffer line and edge of
+prepared surface \\
+\(s\) & Speed \\
+\(\theta\) & Crossing angle \\
+\(\theta_{abort}\) & Crossing angle value used as an abort criterion \\
+\(t_{margin}\) or \(t\) & Time margin \\
+\(r_{turn_{recovery}}\) or \(r\) & Turn radius during recovery \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Derived Parameter
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\vec{v}\) & Velocity vector \\
+\(d_{margin}\) & Distance margin, the product of time margin and
+speed \\
+\(\dot{\theta}\) & Angular rate \\
+\(\ddot{\theta}\) & Angular acceleration \\
+\(\dot{s}\) & Linear acceleration \\
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Geometric Term
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definition
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\(\Delta\) & Triangle \\
+\(\angle\) & Angle \\
+\(I\) & Point of intersection of the ground path and \(B\) \\
+\(T\) & Point where the recovery turn begins \\
+\(\mu\) & Center of the turn circle \\
+\(M\) & Point of intersection between \(B\) and a line perpendicular to
+\(B\) that runs through \(\mu\) \\
+\(x\) & Length of line segment from \(I\) to \(\mu\) \\
+\(\alpha\) & Angle formed by \(\angle \mu IT\) \\
+\(H\) & Point of intersection between \(B\) and a line perpendicular to
+\(B\) that runs through \(T\) \\
+\(F\) & Point where recovery turn is finished \\
+\(V\) & Point of intersection between \(\overline{\mu F}\) and a line
+perpendicular to \(\overline{\mu F}\) that runs through \(T\) \\
+\end{longtable}
+
+\newpage{}
+
+\section{Introduction}\label{sec-intro}
+
+The primary hazard under consideration in this paper is ``Departure from
+the Prepared Surface,'' specifically in the context of low, medium, and
+high speed taxi test. Following established practice, a mitigation for
+this hazard is the establishment of abort criteria that allow for an
+abort procedure to provide recovery of the system under test before
+departing the prepared surface. The concept of horizontal time safety
+margin resulted deliberations on how to determine the abort criteria
+during taxi testing of new aircraft design as part of the build up to
+first flight.
+
+The lack of quantitative means of determining abort criteria prompted a
+search for analogous methods that could inform the development of a
+quantitative approach. Time safety margin for vertical aerial
+maneuvering, developed to avoid collision with the surface, has many
+features in common with the problem of avoiding departing the prepared
+surface during horizontal ground maneuvering. Borrowing key elements
+from time safety margin, a horizontal analogy was implemented. The
+implementation is agnostic to any specific system and requires only
+basic kinematics for initial estimates. Higher-fidelity estimates can be
+generated by incorporating models of the system which include inertias
+and moments, if desired and available.
+
+\section{Time Safety Margin Origins}\label{sec-tsm_origins}
+
+The history and development of time safety margin is well covered by
+Bill ``Evil'' Gray in the 412th Test Wing Technical Information Handbook
+titled ``Time Safety Margin: Theory And Practice.'' {[}1{]} Time safety
+margin was born out of the 2009 fatal mishap of Dave ``Cools'' Cooley
+during a diving test maneuver. The basic task of time safety margin is
+to determine the time an aircraft may remain on its worst-case vector
+until the planned recovery will no longer be sufficient to prevent a
+mishap. The necessity for the development of time safety margin was
+driven by large over- and under-estimations of maneuver setup and abort
+criteria. The techniques prior to time safety margin were often
+oversimplified and relied on imprecise or inaccurate assumptions.
+Over-estimates lead to excessive setup climbs and too-conservative abort
+calls, driving costs in time, fuel, and unnecessary repeated runs.
+Under-estimates lead to insufficient margin and an increase in risk
+exposure. After its incorporation into mandatory Air Force test
+processes, time safety margin has continued to evolve as exposure to
+multiple real-life scenarios has unveiled sensitivity to certain test
+conditions.
+
+Figure~\ref{fig-basic-dive} shows the essential components necessary to
+understand and apply the time safety margin (TSM) concept. As defined in
+{[}1{]}, a ``maneuver'' consists of a ``procedure'' and a ``recovery.''
+In the figure, the procedure is simple upright pushover bunt dive, and
+the recovery is an upright pull until level. The ``worst-case vector''
+in this case is the lowest altitude with the steepest angle relative to
+the ground. Extending the worst-case vector for a duration, the ``time
+safety margin,'' generates a straight line, the ``TSM path,'' that ends
+at the point where executing the remaining maneuver after the worst-case
+vector results in a ``zero-spatial-margin'' recovery not impacting the
+surface.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{images/tsm-theory-and-practice-fig-8.png}
+
+}
+
+\caption{\label{fig-basic-dive}From TSM Theory and Practice, Figure 8
+``Basic Dive Recovery Terminology''}
+
+\end{figure}%
+
+The complexity of diving maneuvers makes closed-form solutions for
+determining test safety margin untenable, so even the simplest scenario
+with the :w most basic assumptions requires numerical methods to
+simulate the unfolding recovery. Any general approach must consider
+normal acceleration, true airspeed, Mach number, calibrated airspeed,
+dynamic pressure, initial aircraft attitude, recovery technique,
+asymmetric structural load, flight control system limiters, load
+alleviation systems, engine control system augmentation, and
+aircraft-specific factors. Time safety margin determination therefore
+necessitates a software solution, and the most common implementations
+have taken the form of MATLAB scripts and graphical user interfaces.
+
+\section{Taxi Testing Requires Margins, Too}\label{sec-taxi_margin}
+
+Taxi testing, consisting of ground maneuvers on prepared surfaces such
+as ramps, taxiways, and runways, may at first glance not seem as
+catastrophic in its consequences as diving at the ground. However,
+departure from the prepared surface can result in total destruction of
+an aircraft, loss of life, and destruction of adjacent property as much
+as high-speed impact with the ground after an unsuccessful dive
+recovery. Even minor damage or injury can set a test campaign back and
+lead to unacceptable losses in schedule, cost, publicity, or trust. So,
+while possibly not considered as dynamic or risky as aerial vertical
+maneuvering, ground horizontal maneuvering requires margin, too.
+
+The simplest margin is a buffer along the edge of the prepared surface,
+providing a space-based abort criterion that can allow distance for a
+recovery maneuver to remain on the prepared surface. But how to
+determine the size of the buffer? What factors influence the balance
+between too much buffer and too little buffer? As with diving time
+safety margin, too much buffer leads to overly constrained maneuver and
+nuisance abort calls and too little buffer leads to no real mitigation
+of the hazard. Even before attempting to find that balance, a little
+further consideration shows that a distance buffer alone is
+insufficient.
+
+The angle at which the aircraft crosses the buffer line greatly affects
+the ability to recover and remain on the prepared surface. Crossing the
+line at a right angle, heading directly toward the edge of the prepared
+surface, offers far less margin than crossing at a shallow angle.
+Therefore establishing a crossing angle that maintains margin for the
+recovery maneuver must also enter the balance. Too shallow an angle
+results in the same excessive margin as too large a distance buffer. Too
+large an angle results in the same insufficient margin as too small a
+distance buffer.
+
+Intuitively, speed and turn radius also contribute to determining the
+margin. Speed reduces the time available for the operator to react, and
+can indirectly affect turn radius. Turn radius is constrained by forces.
+Skidding puts an upper limit on force available to turn. Structural load
+limits, the moment that initiates tipping, and shear induced on tires
+put an upper limit on force allowable to turn. Turning forces are also
+affected by surface conditions, tire wear, tire temperature, steering
+kinematics, and steering dynamics.
+
+\section{Horizontal Time Safety Margin Concept}\label{sec-htsm_concept}
+
+How then, to determine the appropriate values of distance buffer and
+crossing angle for a given speed and turn radius that result in a margin
+that strikes the balance? The principles of time safety margin can be
+brought to bear.
+
+See Figure~\ref{fig-basic-turn} for the concept depicted from an
+overhead view of a hypothetical runway. The figure is drawn to evoke
+geometry of Figure~\ref{fig-basic-dive}, as this analogue was the
+original inspiration for the concept of a horizontal time safety margin.
+An aircraft is shown traveling from left to right, executing a right
+turn toward the edge of the runway, then recovering with a left turn
+with a smaller turn radius.{[}2{]} The aircraft is not-to-scale and
+shown to assist in the visualization, but no actual aircraft
+characteristics or dynamics are assumed or depicted. Additionally, the
+aircraft is treated as a point mass for the purposes of this
+illustration without considering main gear wheelbase or nose gear
+geometry.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Distance buffer
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The distance buffer is a line, \(B\)
+  \item
+    \(B\) is parallel to the edge of the prepared surface, \(E\)
+  \item
+    \(B\) is also offset from the centerline, \(C\)
+  \end{itemize}
+\item
+  Recovery maneuver
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The recovery maneuver is a turn
+  \item
+    The turn is planned to begin at the moment of crossing the distance
+    buffer line
+  \item
+    The turn is planned to end when the velocity vector is parallel to
+    the edge of the prepared surface and no longer at risk of departing
+  \end{itemize}
+\item
+  Worst-case vector
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The worst-case vector is the velocity vector, \(\vec{v}\), at the
+    moment of crossing the distance buffer line, \(B\)
+  \item
+    The vector consists of speed, \(s\), and direction, \(\theta\), the
+    angle between the vector, \(\vec{v}\) and the buffer line, \(B\)
+  \item
+    The vector is not shown in Figure~\ref{fig-basic-turn} to avoid
+    cluttering the image
+  \end{itemize}
+\item
+  Time margin
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The time margin is a duration
+  \item
+    The duration is the time for which the worst-case vector is extended
+    prior to starting the recovery maneuver, shown as the dashed line in
+    Figure~\ref{fig-basic-turn}.
+  \end{itemize}
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaDiveCompare.png}
+
+}
+
+\caption{\label{fig-basic-turn}Basic Turn Recovery Inspired by TSM Basic
+Dive Recovery}
+
+\end{figure}%
+
+\section{Horizontal Time Safety Margin
+Implementation}\label{sec-htsm_implementation}
+
+To implement the concept, a more detailed look at the geometry is in
+order. Also, several additional simplifying assumptions are made for the
+initial implementation:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Constant speed during the full evolution
+\item
+  Circular turns with constant radii
+\item
+  Turn acceleration with no slip, skid, tip, or load exceedance
+\item
+  Symmetry for right and left turns
+\item
+  The speed and angle of the aircraft at the intersection of the ground
+  path and the distance buffer line defines the worst-case vector, and
+  therefore dynamics prior to the crossing can be ignored.
+\end{enumerate}
+
+With those assumptions in place, the following are given, as shown in
+Figure~\ref{fig-given}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  a prepared surface with
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    straight edge, \(E\)
+  \item
+    a width, \(w\)
+  \item
+    a center\_line, \(C\)
+  \item
+    a buffer line parallel to the edge of the prepared surface, \(B\)
+  \item
+    a buffer distance, \(b\), from \(B\) to \(E\)
+  \item
+    an offset distance, \(o\), from \(C\) to \(B\)
+  \item
+    a halfwidth distance, \(h = \frac{w}{2}\), from \(C\) to \(E\)
+  \end{enumerate}
+\item
+  a crossing vector, \(\vec{v}\), with magnitude, speed \(s\), and
+  crossing angle \(\theta\)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The assumed constant speed, \(s\), is depicted by showing the
+    vector, \(\vec{v}\) in three places
+
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \tightlist
+    \item
+      With respect to the centerline, \(C\), with speed \(s\) and angle
+      \(\theta\)
+    \item
+      With respect to the buffer line, \(B\), with speed \(s\) and angle
+      \(\theta\)
+    \item
+      After full recovery, with speed \(s\) and parallel to the edge,
+      \(E\)
+    \end{enumerate}
+  \end{itemize}
+\item
+  a desired time margin, \(t_{margin}\)
+\item
+  a turn radius, \(r_{turn_{recovery}}\)
+\end{enumerate}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticGiven.png}
+
+}
+
+\caption{\label{fig-given}The given parameters for horizontal time
+safety margin}
+
+\end{figure}%
+
+\subsection{\texorpdfstring{Calculating the Maximum Recoverable Crossing
+Angle,
+\(\theta\)}{Calculating the Maximum Recoverable Crossing Angle, \textbackslash theta}}\label{sec-calc_theta}
+
+The goal is to calculate the maximum crossing angle, \(\theta\), that
+allows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  straight line travel for
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \tightlist
+  \item
+    time, \(t_{margin}\), and
+  \item
+    distance, \(d_{margin}\), where \(d_{margin} = t_{margin} \cdot s\)
+  \end{enumerate}
+\item
+  then a recovery with radius \(r_{turn_{recovery}}\),
+\item
+  that results in the vehicle moving parallel to \(E\)
+\item
+  without departing the prepared surface
+\end{enumerate}
+
+Figure~\ref{fig-calc-examples} shows three angles that do not meet the
+desired outcome for the given parameters. Speed, time margin, turn
+radius, runway dimensions, and buffer distance are the same for all
+three examples. One angle is too large for the given parameters.
+Perpendicular to the buffer line, it results in departure from the
+prepared surface. The other two are too small for the given parameters.
+While they both result in a safe recovery, they are too shallow for the
+time margin selected. The two shallow angles result in excessive margin
+and potentially nuisance abort calls.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticCalculate.png}
+
+}
+
+\caption{\label{fig-calc-examples}Three angles that result in
+insufficient margin or excessive margin for the given speed, buffer
+distance, turn radius and time margin}
+
+\end{figure}%
+
+To more precisely state the geometry problem, Figure~\ref{fig-angles}
+zooms in to the buffer distance, \(b\). The figure depicts the geometry
+for a recovery at the edge of the prepared surface after traveling a
+straight-line distance for the full duration of the time safety margin.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{./marimo-htsm/media/images/BigIdeaStaticAngles.png}
+
+}
+
+\caption{\label{fig-angles}Analysis of the desired crossing angle}
+
+\end{figure}%
+
+Upon inspection, two right triangles, \(\Delta \mu IT\) and
+\(\Delta I\mu M\), can be constructed from the following elements:
+
+\begin{itemize}
+\tightlist
+\item
+  \(I\), the point of intersection between the ground path and the
+  buffer line
+\item
+  \(T\), the point where the recovery turn begins
+\item
+  \(\mu\), the center of the turn circle
+\item
+  \(M\), the point of intersection between the buffer line and a line
+  perpendicular to the buffer line that runs through \(\mu\)
+\end{itemize}
+
+The sides of the triangles can be related to the horizontal time safety
+margin parameters:
+
+\begin{itemize}
+\tightlist
+\item
+  \(d_{margin}\), the length of line segment \(\overline{IT}\)
+\item
+  \(r_{turn_{recovery}}\), the length of line segment
+  \(\overline{T\mu}\)
+\item
+  \(b - r_{turn_{recovery}}\), the length of line segment
+  \(\overline{M\mu}\)
+\end{itemize}
+
+The two triangles share a hypotenuse,\(\overline{I\mu}\), with length
+\(x\).
+
+\(\overline{I\mu}\) divides the crossing angle, \(\theta\) into two
+angles:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\alpha\), the angle formed by \(\angle \mu IT\)
+\item
+  \(\theta - \alpha\), the angle formed by \(\angle MI\mu\)
+\end{itemize}
+
+The angle \(\alpha\) can be related to the horizontal time safety margin
+parameters using the \(\tan\) of \(\Delta \mu IT\), as shown in
+Equation~\ref{eq-alpha}.
+
+\begin{equation}\phantomsection\label{eq-alpha}{
+\alpha = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{d_{margin}} \right)
+}\end{equation}
+
+The angle \(\theta - \alpha\) can be related to the horizontal time
+safety margin parameters using the \(\sin\) of \(\Delta I\mu M\), as
+shown in Equation~\ref{eq-theta_alpha_x}.
+
+\begin{equation}\phantomsection\label{eq-theta_alpha_x}{
+\theta - \alpha = \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{x}\right)
+}\end{equation}
+
+Making use of the Pythagorean Theorem from \(\Delta \mu IT\) defines
+\(x\) in terms of \(r_{turn_{recovery}}\) and \(d_{margin}\), as shown
+in Equation~\ref{eq-theta_alpha}.
+
+\begin{equation}\phantomsection\label{eq-theta_alpha}{
+\theta - \alpha = \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + d_{margin}^{2}}} \right)
+}\end{equation}
+
+When adding the two equations, \(\alpha\) drops out and only \(\theta\)
+remains, providing a closed-form solution for \(\theta\),
+Equation~\ref{eq-theta}.
+
+\begin{equation}\phantomsection\label{eq-theta}{
+\theta = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{d_{margin}} \right) + \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + d_{margin}^{2}}} \right)
+}\end{equation}
+
+Substituting the speed, \(s\), and time margin, \(t_{margin}\), for the
+distance, \(d_{margin}\), provides an equation completely in terms of
+the horizontal time safety margin parameters,
+Equation~\ref{eq-theta-full}.
+
+\begin{equation}\phantomsection\label{eq-theta-full}{
+\theta = \tan^{-1} \left( \frac{r_{turn_{recovery}}}{t_{margin} \cdot s} \right) + \sin^{-1} \left( \frac{b - r_{turn_{recovery}}}{\sqrt{{r_{turn_{recovery}}}^{2} + \left(t_{margin} \cdot s\right)^{2}}} \right)
+}\end{equation}
+
+\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-important-color!10!white, bottomrule=.15mm, titlerule=0mm, toptitle=1mm, rightrule=.15mm, leftrule=.75mm, opacityback=0, breakable, left=2mm, opacitybacktitle=0.6, colback=white, colframe=quarto-callout-important-color-frame, toprule=.15mm, bottomtitle=1mm, title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{Important}, arc=.35mm, coltitle=black]
+
+This function provides the abort angle in radians, given that the
+distance, time, and speed units are consistent in length and time. As
+always, careful attention to unit conversions is necessary, especially
+when working in typical aviation units, when working across teams, and
+when working with international partners.
+
+\end{tcolorbox}
+
+Figure~\ref{fig-perfect} provides an example of a geometry using the
+following values in normalized units as inputs:
+
+\begin{itemize}
+\tightlist
+\item
+  \(b = 4.0\),
+\item
+  \(r_{turn_{recovery}} = 1.0\),
+\item
+  \(s = 1.0\), and
+\item
+  \(t_{margin} = 4.0\).
+\end{itemize}
+
+This results in an angle of
+\(\theta = 1.05981\mathrm{rad} = 60.7226^{\circ}\) and recovery of a
+point mass without departing the prepared surface.
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{marimo-htsm/media/images/BigIdeaStaticCalculatePerfect.png}
+
+}
+
+\caption{\label{fig-perfect}Demonstration of use of
+Equation~\ref{eq-theta-full} to achieve a 4.0 time safety margin}
+
+\end{figure}%
+
+\subsection{Calculating the Remaining
+Parameters}\label{sec-calc_remaining_params}
+
+There may be scenarios in which the angle, \(\theta\), is already known
+or defined. There may also be sensitivity studies in which the effect of
+varying one parameter on the remaining parameters is of interest. In
+these scenarios or studies, determining the other parameters may be
+necessary to fully define or explore the trade space for the abort
+criteria.
+
+With a slight shift in perspective, the other parameters can be
+determined, given a desired angle and the remaining parameters, as shown
+in Figure~\ref{fig-others}. To declutter the figure:
+
+\begin{itemize}
+\tightlist
+\item
+  the turn radius, \(r_{turn_{recovery}}\), is shown as \(r\),
+\item
+  the time margin, \(t_{margin}\), is shown as \(t\), and
+\item
+  the time margin distance, \(d_{margin}\), is shown as the product
+  \(t\cdot s\) .
+\end{itemize}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{./marimo-htsm/media/images/BigIdeaStaticOtherAngles.png}
+
+}
+
+\caption{\label{fig-others}A shift in geometry yields a closed form
+solution for the other parameters, given the crossing angle, \(\theta\)}
+
+\end{figure}%
+
+\subsubsection{\texorpdfstring{Triangle
+\(\Delta TIH\)}{Triangle \textbackslash Delta TIH}}\label{sec-triangle_tih}
+
+A right triangle, \(\Delta TIH\), can be defined with
+
+\begin{itemize}
+\tightlist
+\item
+  vertices at points
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(I\), where the ground path intersects the buffer line, \(B\)
+  \item
+    \(T\), where the turn recovery starts
+  \item
+    \(H\), the point of intersection between \(B\) and a line
+    perpendicular to \(B\) that runs through \(T\)
+  \end{itemize}
+\item
+  angle, \(\angle HIT\), which is also the crossing angle, \(\theta\)
+\item
+  hypotenuse, \(\overline{IT}\), which is also the time margin distance,
+  \(d_{margin} = t \cdot s\)
+\item
+  side, \(\overline{HT}\), which is opposite \(\theta\)
+\end{itemize}
+
+\begin{equation}\phantomsection\label{eq-sin-theta-ht}{
+\sin\theta = \frac{\overline{HT}}{\overline{IT}} = \frac{\overline{HT}}{t \cdot s}
+}\end{equation}
+
+\(\overline{HT}\), can be expressed in terms of \(r\), and \(b\), with
+the help of another triangle and line segment.
+
+\subsubsection{\texorpdfstring{Triangle \(\Delta T\mu V\) and Line
+Segment
+\(\overline{M\mu}\)}{Triangle \textbackslash Delta T\textbackslash mu V and Line Segment \textbackslash overline\{M\textbackslash mu\}}}\label{sec-triangle_tmuv}
+
+A right triangle, \(\Delta T\mu V\), can be defined with
+
+\begin{itemize}
+\tightlist
+\item
+  vertices at points
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\mu\), the center point of the turn circle
+  \item
+    \(T\), where the turn recovery starts
+  \item
+    \(V\),
+
+    \begin{itemize}
+    \tightlist
+    \item
+      on the line segment \(\overline{\mu F}\)
+    \item
+      \(F\) is the point where the recovery turn is finished
+    \item
+      \(V\) is the point of intersection between \(\overline{\mu F}\)
+      and a line perpendicular to \(\overline{\mu F}\) that runs through
+      \(T\)\textbar{}
+    \end{itemize}
+  \end{itemize}
+\item
+  angle, \(\angle T\mu V\), which is also the crossing angle, \(\theta\)
+\item
+  hypotenuse, \(\overline{\mu T}\), which is also the recovery turn
+  radius, \(r\)
+\item
+  side, \(\overline{\mu V}\), which is adjacent to \(\theta\), and
+  therefore \(\overline{\mu V} = r\cos\theta\)
+\end{itemize}
+
+A line segment, \(\overline{M\mu}\), can be seen to be the difference
+between the buffer distance, \(b\), and the recovery turn radius, \(r\),
+thus \(\overline{M\mu} = b - r\).
+
+\(\overline{HT}\) is equivalent to \(\overline{MV}\), the sum of
+\(\overline{M\mu}\) and \(\overline{\mu V}\).
+
+Therefore
+
+\begin{equation}\phantomsection\label{eq-ht}{
+\begin{aligned}
+\overline{HT} = \overline{MV} = &&& \overline{M\mu} & + & \overline{\mu V}\\
+= &&& \left( b - r\right) & + & \left(r\cos\theta\right) \\
+= &&& b + r\left(\cos\theta - 1\right) &&
+\end{aligned}
+}\end{equation}
+
+Combining Equation~\ref{eq-sin-theta-ht} and Equation~\ref{eq-ht} gives,
+
+\begin{equation}\phantomsection\label{eq-all-params}{
+\sin\theta = \frac{b + r \left(\cos\theta - 1 \right)}{t \cdot s}
+}\end{equation}
+
+\(\Delta TIH\) relates all five of the parameters, as shown in
+Equation~\ref{eq-all-params}, with \(\theta\) the only parameter
+included twice.\footnote{The fact that \(\theta\) appears twice in this
+  equation within trigonometric functions is what prevents this equation
+  from being used to solve for \(\theta\), thus the derivation in
+  Section~\ref{sec-calc_theta}}
+
+If \(\theta\) is known, then, the other four parameters can each be
+solved simply in terms of the remaining parameters, as shown below.
+
+\begin{equation}\phantomsection\label{eq-time}{
+t = \frac{b + r \left(\cos\theta - 1 \right)}{s\sin\theta}
+}\end{equation}
+
+\begin{equation}\phantomsection\label{eq-speed}{
+s = \frac{b + r \left(\cos\theta - 1 \right)}{t\sin\theta}
+}\end{equation}
+
+\begin{equation}\phantomsection\label{eq-buffer}{
+b = t \cdot s\sin\theta + r \left(1 - \cos\theta \right)
+}\end{equation}
+
+\begin{equation}\phantomsection\label{eq-radius}{
+r = \frac{t \cdot s\sin\theta - b }{ \cos\theta -1 }
+}\end{equation}
+
+Equation~\ref{eq-theta-full}, Equation~\ref{eq-time},
+Equation~\ref{eq-speed}, Equation~\ref{eq-buffer}, and
+Equation~\ref{eq-radius} provide a complete description of how to
+determine the magnitudes of the buffer distance, \(b\), the time margin,
+\(t\), the speed, \(s\), the turn radius, \(r\), and the crossing angle,
+\(\theta\), that together provide an optimal recovery with no under- or
+overshooting during recovery.
+
+\section{Considerations}\label{sec-considerations}
+
+The simplifying assumptions used to derive the equations above each have
+additional considerations that will affect the utility of the horizontal
+time safety margin concept. The section will address a few
+considerations for each. As ever, safety planning and safe execution
+rely on:
+
+\begin{itemize}
+\tightlist
+\item
+  sufficient knowledge of the system under test, including its
+  capabilities, necessary constraints, and inherent margins,
+\item
+  the experience, training, currency, and proficiency of the test team
+  in both system operation and test conduct,
+\item
+  test day conditions,
+\item
+  the regulatory and oversight systems in place for the planning and
+  execution,
+\item
+  the time set aside for dedicated discussion, thought, and
+  experimentation,
+\item
+  and the clarity, conciseness, correctness, and completeness of
+  communication throughout planning and execution.
+\end{itemize}
+
+As such, no single paper or presentation can suffice for all
+circumstances.
+
+\subsection{\texorpdfstring{The Angle,
+\(\theta\)}{The Angle, \textbackslash theta}}\label{sec-consider_angle}
+
+\subsubsection{Angle Definition}\label{sec-consider_angle_defn}
+
+The direction of the diving time safety margin worst-case vector,
+\(\theta\), is treated in this paper as essentially the same as the
+angle at which the vehicle crosses the the buffer line. This can be seen
+as a somewhat circular, because the buffer line is, in part, established
+as resulting from the worst-case vector. Which comes first, the angle or
+the buffer? The decision to set the angle or the buffer distance first
+is somewhat arbitrary, but can be influenced by the specific test
+technique that is being employed and the test conditions that must be
+met for the results to be valid, as well as the nature of the prepared
+surface.
+
+\subsubsection{\texorpdfstring{Angular Rate, \(\dot{\theta}\), and
+Angular Acceleration,
+\(\ddot{\theta}\)}{Angular Rate, \textbackslash dot\{\textbackslash theta\}, and Angular Acceleration, \textbackslash ddot\{\textbackslash theta\}}}\label{sec-consider_angle_rate}
+
+The simplifying assumptions do not address angle rate at all, and in
+fact the entire treatment assumes a point mass. Angular momentum of a
+vehicle that is rotating toward the edge of the prepared surface must be
+negated and in fact reversed. This requires torque, which in turn
+requires reaction forces with the prepared surface, and which must be
+transferred from the surface, through the physical geometry of the
+vehicle. The extent and strength of any subcomponents and their
+connections to the vehicle can impose additional constraints on the rate
+and acceleration of the angle.
+
+Additionally, the control system itself may have some constraint on the
+rate or acceleration, either due to operator inputs via inceptor design,
+control system logic via limiters or inherent properties, control system
+implementation via feedback or estimations, or effector characteristics
+such as flow rate limits, hardstops, or other nonlinearities.
+
+\subsubsection{Proximity to the Centerline and the
+Edge}\label{sec-consider_angle_prox}
+
+Larger angles may be tolerated toward the center of the prepared surface
+than toward the edge. A single abort angle \(\theta_{abort}\) is
+typically applicable for a single combination of parameters, including
+buffer distance. In a dynamic, real-time execution, a single
+\(\theta_{abort}\) can actually lead to confusion and additional test
+team workload to determine, in the moment, whether this is the region or
+circumstance in which \(\theta_{abort}\) applies and whether an ``ABORT
+ABORT ABORT Angle'' call is warranted. Multiple ``zones'' on the
+prepared surface increase the complexity of test conduct and can result
+in the very situations horizontal time safety margin is attempting to
+mitigate, namely abort calls that are too soon, and therefore a
+nuisance, or too late, and there for disastrous.
+
+Test aids for visualizing the situation can assist, but themselves
+become safety-critical products that must be validated and
+version-controlled. Such aids could include:
+
+\begin{itemize}
+\tightlist
+\item
+  for a static \(\theta_{abort}\), regions of the prepared surface which
+  are ``free-movement'', ``subject to \(\theta_{abort}\)'', and ``abort
+  for proximity to edge''
+\item
+  a real-time (or faster-than-real-time) dynamically calculated
+  \(\theta_{abort}\) that is compared with the current angle with the
+  edge of the prepared surface, for a given minimum time safety margin
+  value
+\end{itemize}
+
+\subsection{\texorpdfstring{The Speed,
+\(s\)}{The Speed, s}}\label{sec-consider_speed}
+
+\subsubsection{Speed Definition}\label{sec-consider_speed_defn}
+
+The other component of the time safety margin worst-case, magnitude or
+speed, \(s\), is treated in this paper in a similar fashion as the
+angle, namely the speed at which the vehicle crosses the buffer line,
+with the same considerations of the worst-case vector direction.
+
+\subsubsection{\texorpdfstring{Linear Acceleration,
+\(\dot{s}\)}{Linear Acceleration, \textbackslash dot\{s\}}}\label{sec-consider_speed_accel}
+
+Also similar to the angle, the simplifying assumptions treat the speed
+as constant throughout the time safety margin extension of the
+worst-case vector, as well as during the constant turn radius recovery
+maneuver. This is likely the largest deviation from actual execution, as
+thrust, aerodynamic drag, rolling friction, and use of energy management
+devices often result in speed changes.
+
+Therefore, ``constant speed'' is the least likely assumption to hold,
+but it is also the assumption most likely to result in actual margins
+being greater than calculated. Simply by including any energy-decreasing
+actions as part of the abort procedure, the speed can be expected to be
+less than that used in the horizontal time safety margin calculation,
+resulting in:
+
+\begin{itemize}
+\tightlist
+\item
+  more time available
+\item
+  excess buffer distance
+\item
+  more angle available
+\item
+  excess turn radius
+\end{itemize}
+
+Techniques such as ``Throttle - IDLE'' and ``Brakes - APPLY'' are fairly
+common in many ground maneuvering tests, both of which contribute to
+reducing the speed for some systems under certain conditions.
+
+Conversely, any setup, test, or recovery techniques that could lead to
+acceleration and an increase in speed would result in insufficient
+margin.
+
+\subsection{\texorpdfstring{The Buffer Distance,
+\(b\)}{The Buffer Distance, b}}\label{sec-consider_buffer}
+
+\subsubsection{Buffer Definition}\label{sec-consider_buffer_defn}
+
+The buffer distance is the parameter most at the discretion of the test
+team. It is also the simplest: a distance, perpendicular to the edge of
+the prepared surface, forming a buffer line, beyond which testing will
+cease and a recovery maneuver will commence. The simple definition can
+mask the complexity of determining a useful buffer, and it may be
+advisable to have the buffer distance fall out of the equations as one
+of the last parameters whose values is set.
+
+\subsubsection{Vehicle Geometry}\label{sec-consider_buffer_veh_geom}
+
+The example above treats the vehicle as a point mass, but vehicles will
+typically have 3 or more geometrically distributed points of contact
+with the ground. Additionally, vehicles typically have portions of their
+geometries that extend beyond the ground points of contact.
+
+A main gear tire could end up off the prepared surface if track width,
+defined as the lateral extent of ground contacts, is not considered,
+even if the center of mass ``recovers'' at the edge of the prepared
+surface. It is recommended to take half of the track width as an
+additional offset in addition to the buffer distance to ensure all of
+the ground contact points remain on the prepared surface.
+
+Likewise, the nose gear could leave the prepared surface if wheel base,
+defined as the longitudinal extent of ground contacts, is not
+considered. It is recommended that a ground track for the nosewheel be
+estimated to determine if additional offset is required for the test and
+recovery conditions. This initial treatment of horizontal time safety
+margin does not explore the conditions where nosewheel track becomes
+critical, but intuition suggests that for shallower crossing angles
+track width is more critical and for larger crossing angles wheel base
+is more critical.
+
+Similar considerations apply for the full vehicle geometry beyond the
+extent of the ground points of contact, including nose, wings, and
+empennage, to mitigate collision with objects or personnel in the
+vertical dimension. Carefully survey test locations to account for three
+dimensional collisions. An example might be taxi testing in proximity to
+a hangar. Accounting for wheel base and track width will not be enough
+to avoid collision without sufficient three-dimensional margin.
+
+\subsection{\texorpdfstring{The Turn Radius,
+\(r\)}{The Turn Radius, r}}\label{sec-consider_radius}
+
+\subsubsection{Turn Radius Definition}\label{sec-consider_radius_defn}
+
+Turn radius is the distance from the center of gravity to the
+instantaneous center of the turn circle. The assumption is that this
+radius is constant. This parameter is almost completely defined by
+vehicle geometry and kinematics, but dynamics can also influence the
+smallest acceptable turn radius.
+
+\subsubsection{Geometry and Kinematics}\label{sec-consider_radius_geom}
+
+The geometry of ground contact points with respect to the vehicle center
+of mass, including wheel base fore and aft of the center of mass and the
+track width right and left of the center of mass, describes the
+kinematics of turning. Depending on the steering method for the vehicle,
+there is typically a kinematically determined minimum turn radius. For
+example, given nosewheel or tailwheel steering, there may be a maximum
+steering angle available, which would determine the minimum turn radius.
+
+\subsubsection{Dynamics}\label{sec-consider_radius_dynamics}
+
+Turn radius is greatly affected by forces at the ground contact points
+and at aerodynamic control surfaces. The means of steering can have a
+significant effect both on the available turn radius and the constancy
+of the turn radius.
+
+The primary means of directional control on the ground are:
+
+\begin{itemize}
+\tightlist
+\item
+  Nosewheel steering
+\item
+  Differential braking
+\item
+  Rudder effector (or equivalent)
+\item
+  Differential thrust (if available)
+\end{itemize}
+
+The dynamics of each of these means vary greatly between systems, so
+knowledge of the system under test is essential for safe and effective
+safety planning and test conduct.
+
+It is important to set aside time and provide resources for intentional
+development of test and recovery techniques for the system under test.
+Some techniques that work on one system may be ``negative training'' for
+another system. For example, if differential thrust is the most
+effective means of directional control, then ``Throttle - IDLE'' on all
+available engines or on the incorrect engine may result in disaster.
+
+\subsection{\texorpdfstring{The Time Margin,
+\(t\)}{The Time Margin, t}}\label{sec-consider_time}
+
+\subsubsection{Time Margin Definition}\label{sec-consider_time_defn}
+
+Time margin is well-described in Section~\ref{sec-tsm_origins} and
+Section~\ref{sec-htsm_concept}. The largest consideration of the
+definition is determining, for each test and recovery maneuver
+combination, the transition point out of the test manuever and into the
+recovery maneuver, then padding that transition with the time margin.
+
+\subsubsection{Duration Selection}\label{sec-consider_time_duration}
+
+A default of 4 seconds time margin for ground maneuvering, based on the
+work of Gray and the AGCAS team, is a solid starting point from which to
+deviate. Complexity or simplicity of the test maneuver, the recovery
+maneuver, and the transition between them can move the needle on time
+margin duration. Readiness of the test team can also affect the
+appropriate duration. The total available margin for test can also
+factor in. A very large surface with very simple maneuvers has
+inherently larger margins. A small surface with complex maneuvers has
+inherently smaller margins.
+
+For scenarios with inherently smaller margins, the Air Force Test Center
+recommended mitigations for smaller time margin durations are a good
+practice, as shown in Table~\ref{tbl-afman_tsm}.{[}3{]}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1429}}@{}}
+\caption{Air Force Manual 11-2FTV3 TSM Risk
+Assessment}\label{tbl-afman_tsm}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Short Title
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+TSM Range {[}sec{]}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum Planning Fidelity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recovery Procedure
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum Training \& Buildup
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recovery Initiation Call
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Baseline Post-Mitigation Risk Level
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Short Title
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+TSM Range {[}sec{]}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum Planning Fidelity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recovery Procedure
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Minimum Training \& Buildup
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Recovery Initiation Call
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Baseline Post-Mitigation Risk Level
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Routine & t ≥ 8 & Normal ops & Routine & Not Required & Pilot & Low \\
+Focused & 8 \textgreater{} t ≥ 4 & M\&S & Defined \& Documented &
+In-Flight Buildup & Pilot & Low \\
+Aided & 4 \textgreater{} t ≥ 2.5 & Best Available M\&S & Defined \&
+Documented & Sim Rehearsal \& In-Flight Buildup & Backup for Pilot &
+Low-Med \\
+Redundantly Aided & 2.5 \textgreater{} t ≥ 1.5 & Best Available M\&S &
+Defined \& Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups
+for Pilot \& Anticipatory Cueing Desired & Med-High \\
+Cued Anticipation & 1.5 \textgreater{} t ≥ 0 & Best Available M\&S &
+Defined \& Documented & Sim Rehearsal \& In-Flight Buildup & Two Backups
+for Pilot \& Anticipatory Cueing Required & High \\
+\end{longtable}
+
+\subsection{Parameter Interactions}\label{sec-consider_interactions}
+
+The above considerations are primarily single-parameter, however, there
+are significant interactions between parameters.
+
+\subsubsection{Speed and Turn Radius}\label{sec-consider_speed_radius}
+
+Speed and turn radius are roughly proportional, but specific
+relationships depend heavily on the system configuration and surface
+conditions. In general, the higher the speed, the larger the turn
+radius, and vice versa.
+
+Skidding and slipping are primary factors in determining the
+relationship between speed and turn radius. In turns, the higher the
+speed the greater the lateral forces are exerted on ground contact
+points, which can lead to skids. Skidding can also occur due to brake
+torque increasing beyond rolling friction torque. Skidding is generally
+to be avoided, as it makes recovery highly unpredictable, increases turn
+radius, and can increase wear on tires.
+
+Anti-skid braking systems can mitigate some skidding concerns when using
+brakes for energy management or for directional control. But reliance on
+anti-skid braking systems when planning for safety margin can result in
+sudden loss of margin if the anti-skid braking system is mis-tuned or
+malfunctions. Also, anti-skid braking systems can excite structural
+vibration modes that expose the system to other hazards. A conservative
+approach will assume no anti-skid braking system available, unless the
+system is very mature and other contingency maneuvers are planned.
+
+Structural load limits are another factor that causes turn radius to
+increase with speed. Lateral loads are the source of the centripetal
+acceleration towards the inside of the turn circle. The smaller the
+radius and higher the speed, the larger the necessary force to keep the
+turn constant.
+
+It is possible for some systems to have minimum allowable turn radius be
+a function of speed, which simplifies the modeling. In the absence of
+such explicit relationships, it's important to realize that speed and
+turn radius are not independent, and to cross-check turn radius values
+with engineering judgement.
+
+\subsubsection{Buffer Distance, Turn Radius, and
+Angle}\label{sec-consider_interactions_buffer_radius_angle}
+
+The interaction between buffer distance, turn radius, and angle is such
+that, the shallower the angle, the larger the maximum possible turn
+radius and the smaller the minimum possible buffer distance. As the
+angle approaches perpendicular to the buffer line and the edge, the
+buffer distance must be greater than the turn radius to allow for any
+time margin. Thus, the greater the crossing angle, the greater the
+buffer distance compared to the turn radius.
+
+\subsubsection{Speed, Time Margin, and
+Angle}\label{sec-consider_interactions_speed_time_angle}
+
+The speed and time margin combine to become the distance margin
+available. The larger the distance margin, the smaller the angle
+available. Time margin should only be decreased for solid technical
+reasons to meet high-value test objectives. Thus, the distance margin
+will typically be primarily a result of speed, and test teams can expect
+to have smaller abort angles at higher speeds.
+
+\subsection{Beyond Horizontal Time Safety
+Margin}\label{beyond-horizontal-time-safety-margin}
+
+\subsubsection{Test Technique and Test Condition
+Selection}\label{test-technique-and-test-condition-selection}
+
+The best test point is the test point that doesn't need to be executed.
+Live test with full-scale assets is expensive in many ways, and exposing
+the test team, the system under test, and the people and property in the
+vicinity of the test to the risks inherent in test operations should be
+done with intention and with clear purpose. The next best test point is
+the test point that is executed in a manner tailored to the system and
+its environment, not one transferred from another system and another
+context without customization. Horizontal time safety margin is a method
+for planning and applying safety constraints to a test maneuver, but
+careful thought should be applied to whether the test maneuver should be
+included in the test campaign at all.
+
+\subsubsection{``Longitudinal'' Time Safety
+Margin?}\label{longitudinal-time-safety-margin}
+
+The horizontal time safety margin developed here could be called
+``lateral or yaw time safety margin,'' as it only is concerned with
+recovery at the edge of the prepared surface parallel to the centerline.
+The margin required to avoid departing the end of the prepared surface
+in the longitudinal direction is not considered here. Contingencies in
+the case of loss of energy management devices (brakes, anti-skid
+systems, aerodynamic braking, etc) need to be considered, as well.
+
+\subsubsection{Consequences of Experiencing the
+Hazard}\label{consequences-of-experiencing-the-hazard}
+
+Not all test limits are created equal. The transition between the
+prepared surface and the surrounding environment relates directly to the
+urgency and intensity of abort calls and procedures. A painted line on a
+dry lakebed is not the same as a literal cliff adjacent to the prepared
+surface, for example. Adjust test procedures and conduct to reflect the
+severity of consequences should the hazard be encountered.
+
+\section{Results During A Taxi Test Campaign}\label{sec-results}
+
+The first applications of horizontal time safety margin were implemented
+during low-speed taxi. Low-speed was defined as the speed region in
+which aerodynamics had negligible contributions to directional control
+or vertical forces. Initial testing was conducted prior to the
+development of horizontal time safety margin. The first low-speed taxi
+runs were executed on ramp spaces to avoid interfering with daily
+general aviation operations. Buffer distances were established on the
+ramp spaces and object collision was a higher hazard than departure from
+the prepared surface. Once basic maneuverability and speed control was
+confirmed, low-speed testing proceeded to fairly narrow taxiways,
+approximately three to four times the track width. Taxiway buffer
+distances were established as a function of track width and desired
+distance from centerline. Angle offsets from centerline were small and
+speeds were low enough that any brake application promptly stopped the
+aircraft.
+
+Low- and medium-speed taxi then progressed to runways. Medium-speed was
+defined as the speed region in which the rudder had sufficient control
+authority to be used for directional control but the wings did not
+produce enough lift for unintentional liftoff and the elevator did not
+have sufficient control authority to raise the nose gear off the ground.
+Nosewheel steering was disabled during the transition from low- to
+medium-speed taxi. Runway testing was the context in which horizontal
+time safety margin was conceived. Test techniques included intentional
+changes of heading to assess directional control margins. A previous
+test campaign had put off directional control evaluations until
+straight-line acceleration and braking were explored, but objectionable
+directional control handling was discovered during contingency
+operations, which is not the time to be discovering directional control
+issues. Therefore, for this campaign, directional control was explored
+early.
+
+As the test team discussed appropriate abort criteria, the insufficiency
+of buffer distance alone became apparent as larger heading offsets were
+considered. As horizontal time safety margin was being initially
+implements, buffer distances were held constant and abort angles were
+calculated for each target test speed. At the time, the closed form
+solution of Equation~\ref{eq-theta-full} had not been derived, so a
+brute force spreadsheet optimization technique was used for the
+calculations. Some basic assumptions about nosewheel skidding allowed
+for a relationship between speed and minimum turn radius, so the minimum
+turn radius became a function of speed and was not included separately.
+
+For slower speeds, abort angle is very sensitive to changes in speed,
+which meant keeping up with a large number of abort criteria for a given
+set of test conditions. The complexity of updating abort angles for each
+test condition became a distraction during test conduct. As speeds
+increased, the calculated abort angles decreased less for each increment
+that speed increased as the angle became less sensitive to speed at
+higher speeds. The test team noticed that, since abort angles
+consistently decreased with increasing speeds, an abort angle for a
+given speed was conservative for all slower speeds. A ``tiered'' set of
+abort angles was developed, making use of the change in sensitivity and
+the fact that any abort angle at a given speed ``covered'' slower
+speeds. A table of two tiers was developed, based on speed values
+rounded up to the nearest 5 or 10 knot increment, such that a
+``low-medium speed'' abort angle and a ``high speed'' abort angle for a
+given test location sufficed.
+
+At higher speeds, the abort angle reduced to small values, three to five
+degrees, emphasizing to the test team that large directional control
+inputs at higher speeds was cause for an abort, even before a heading
+change developed. This was certainly the intuition of the test team
+already after significant prior education, training, and experience, but
+horizontal time safety margin provided a physical foundation for that
+intuition, along with a tangible and calculable constraint based on that
+foundation.
+
+\section{Conclusions}\label{sec-conclusions}
+
+Horizontal time safety margin provides a quantitative basis for safety
+planning and test conduct of ground maneuvering test and recovery
+techniques. With a few simplifying assumptions, a reasonable estimate
+for buffer distances and abort angle criteria can be calculated for a
+system under test executing a test technique under a test condition on a
+given prepared surface. Horizontal time safety margin is appropriate for
+ramp, taxiway, and runway testing from low- through high-speed taxi
+testing.
+
+The desired outcome of this paper and the accompanying presentation is
+to solicit feedback on the approach and to increase fidelity where
+appropriate. Additional considerations not covered here may surface
+during implementation in other contexts.
+
+\section*{Acknowledgments}\label{sec-ack}
+\addcontentsline{toc}{section}{Acknowledgments}
+
+\begin{itemize}
+\tightlist
+\item
+  William ``Evil'' `Bill' Gray for not only the original contributions
+  to the subject, but the thorough documentation of the context and
+  discussion surrounding diving time safety margin.
+\item
+  Jackson Cook for providing a return on the investment into his
+  undergraduate math degree, resulting in a closed-form solution for
+  determining \(\theta\) based on a re-imagining of the trigonometry
+  involved, which had eluded his father for more than a year.
+  Figure~\ref{fig-angles} is his direct contribution, without which this
+  paper would have suffered greatly.
+\item
+  Michael ``Ramjet'' `Mick' Mansfield for supporting this extension of
+  prior practice into a new domain while under intense pressure to
+  perform on a clean-sheet aircraft design.
+\item
+  The test pilots who put horizontal time safety margin through its
+  paces: Kris ``WigB'' Rorberg, Tom ``Sally'' Fields, Jeremy ``NOVA''
+  Vanderhal, Brett ``Pugs'' Pugsley, and David ``Pimp'' `Kees'
+  Allamondola.
+\item
+  Madeleine ``Mad'' Graham, Mark ``SCIPR'' Jones, Tom ``Sulu'' Hill,
+  NOVA, and Pimp for their insightful feedback.
+\end{itemize}
+
+\section*{References}\label{sec-ref}
+\addcontentsline{toc}{section}{References}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{0}{0}
+\bibitem[\citeproctext]{ref-Gray2016}
+\CSLLeftMargin{{[}1{]} }%
+\CSLRightInline{W. R. Gray, {``Time Safety Margin: Theory And
+Practice.''} Sep. 2016. Available:
+\url{https://apps.dtic.mil/sti/citations/AD1020034}}
+
+\bibitem[\citeproctext]{ref-AirplanePNG}
+\CSLLeftMargin{{[}2{]} }%
+\CSLRightInline{{``Airplane Top View PNGs by Vecteezy.''} Available:
+\url{https://www.vecteezy.com/free-png/airplane-top-view}}
+
+\bibitem[\citeproctext]{ref-AFMAN11-2FTV3}
+\CSLLeftMargin{{[}3{]} }%
+\CSLRightInline{{``Flight Test Operations Procedures.''} Dec. 29, 2020.
+Available:
+\url{https://static.e-publishing.af.mil/production/1/af_a3/publication/afman11-2ftv3/afman11-2ftv3.pdf}}
+
+\end{CSLReferences}
+
+\section*{Biography}\label{sec-bio}
+\addcontentsline{toc}{section}{Biography}
+
+\textbf{Nathan ``CAP'N'' Cook}, SFTE Fellow and a United States Air
+Force civil servant test engineer for 21 years, entered the startup
+world in 2023, first as Principal Flight Test Engineer and Test
+Conductor during Hermeus Quarterhorse Mk0 and Mk1 Taxi Test, and now as
+Principal Flight Test Engineer at EpiSci testing sUAS collaborative
+autonomy mesh networks and Group 5 flight and mission autonomy.
+
+\textbf{Jackson Cook} graduated from the University of Florida in
+December 2024 with a Bachelor's of Science in Mathematics and a minor in
+Chinese. Topics of interest for him include algebra, topology, and
+combinatorics. Currently, Jackson works as an educator at a science
+center, tutors math, and does freelance video editing. He is also
+collaborating in a project studying algebraic structures, such as
+monoids, internal to graphs.
+
+\newpage{}
+
+\section*{Appendix A - Python Implementation}\label{sec-python}
+\addcontentsline{toc}{section}{Appendix A - Python Implementation}
+
+Equation~\ref{eq-theta-full}, Equation~\ref{eq-time},
+Equation~\ref{eq-speed}, Equation~\ref{eq-buffer}, and
+Equation~\ref{eq-radius} can be implemented in Python using the
+\texttt{numpy} package for the trigonometric functions \texttt{arcsin},
+\texttt{arctan}, and \texttt{sqrt}. These functions are defined with
+arbitrary default values of buffer distance, \texttt{buffer}, recovery
+turn radius, \texttt{radius}, speed, \texttt{speed}, and time safety
+margin duration, \texttt{time}. These default values allow the functions
+to return a value in the absence of one or more input argument
+definitions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ numpy }\ImportTok{import}\NormalTok{ arcsin, arctan, sqrt}
+
+
+\KeywordTok{def}\NormalTok{ abort\_angle(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}
+\NormalTok{        arctan(radius }\OperatorTok{/}\NormalTok{ (time }\OperatorTok{*}\NormalTok{ speed))}
+        \OperatorTok{+}\NormalTok{ arcsin((}\BuiltInTok{buffer} \OperatorTok{{-}}\NormalTok{ radius) }\OperatorTok{/}\NormalTok{ sqrt(radius}\OperatorTok{**}\DecValTok{2} \OperatorTok{+}\NormalTok{ (time }\OperatorTok{*}\NormalTok{ speed) }\OperatorTok{**} \DecValTok{2}\NormalTok{))}
+\NormalTok{    )}
+
+
+\KeywordTok{def}\NormalTok{ abort\_buffer(angle}\OperatorTok{=}\NormalTok{abort\_angle(), radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ np.sin(angle) }\OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (}\DecValTok{1} \OperatorTok{{-}}\NormalTok{ np.cos(angle)))}
+
+
+\KeywordTok{def}\NormalTok{ time\_margin(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle()):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}
+\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (speed }\OperatorTok{*}\NormalTok{ np.sin(angle))}
+\NormalTok{    )}
+
+
+\KeywordTok{def}\NormalTok{ abort\_speed(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, radius}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle(), time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{(}
+\NormalTok{        (}\BuiltInTok{buffer} \OperatorTok{+}\NormalTok{ radius }\OperatorTok{*}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{)) }\OperatorTok{/}\NormalTok{ (time }\OperatorTok{*}\NormalTok{ np.sin(angle))}
+\NormalTok{    )}
+
+
+\KeywordTok{def}\NormalTok{ abort\_radius(}\BuiltInTok{buffer}\OperatorTok{=}\FloatTok{4.0}\NormalTok{, angle}\OperatorTok{=}\NormalTok{abort\_angle(), speed}\OperatorTok{=}\FloatTok{1.0}\NormalTok{, time}\OperatorTok{=}\FloatTok{4.0}\NormalTok{):}
+    \ControlFlowTok{return} \BuiltInTok{float}\NormalTok{((time }\OperatorTok{*}\NormalTok{ speed }\OperatorTok{*}\NormalTok{ np.sin(angle) }\OperatorTok{{-}} \BuiltInTok{buffer}\NormalTok{) }\OperatorTok{/}\NormalTok{ (np.cos(angle) }\OperatorTok{{-}} \DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+
+
+
+
+\end{document}

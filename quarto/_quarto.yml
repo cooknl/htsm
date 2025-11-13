@@ -1,0 +1,26 @@
+project:
+  type: manuscript
+
+manuscript:
+  article: htsm.qmd
+
+format:
+  html:
+    comments:
+      hypothesis: true
+  jats: default
+  pdf:
+    margin-right: 1in
+    margin-left: 1in
+    margin-bottom: 1in
+    margin-top: 1in
+    keep-tex: true
+    output-file: cook_horizontal_time_safety_margin_2025.pdf
+    include-in-header: 
+      text: |
+        \usepackage{scrlayer-scrpage}
+        \rohead{The Society of Flight Test Engineers}
+        \lofoot{SFTE 2025 International Symposium}    
+execute:
+  freeze: true
+

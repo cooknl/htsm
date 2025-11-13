@@ -6,7 +6,7 @@ authors:
   affiliation: "Niceville, FL"
 - name: Jackson Cook
   affiliation: "Niceville, FL"
-csl: ieee-with-url.csl
+csl: resources/ieee-with-url.csl
 number-sections: true
 references:
 - id: Gray2016
